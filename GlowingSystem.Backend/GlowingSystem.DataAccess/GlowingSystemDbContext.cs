@@ -1,4 +1,4 @@
-﻿using GlowingSystem.DataAccess.Etnities;
+﻿using GlowingSystem.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GlowingSystem.DataAccess
@@ -11,5 +11,12 @@ namespace GlowingSystem.DataAccess
         public DbSet<EmployeeEntity> Employees { get; set; }
         public DbSet<CustomerEntity> Customers { get; set; }
         public DbSet<ContractorEntity> Contractors { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(GlowingSystemDbContext).Assembly);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GlowingSystem.DataAccess.Etnities
+﻿namespace GlowingSystem.DataAccess.Entities
 {
     public class ContractorEntity : CompanyBase
     {
