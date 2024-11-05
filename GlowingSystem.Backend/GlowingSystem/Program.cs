@@ -9,7 +9,8 @@ namespace GlowingSystem
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddApplicationPart(typeof(API.AssemblyReference).Assembly);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -21,9 +22,12 @@ namespace GlowingSystem
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCors("GlowingSystemCorsPolicy");
 
             app.UseAuthorization();
 
