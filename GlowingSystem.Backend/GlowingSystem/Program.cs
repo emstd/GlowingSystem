@@ -1,5 +1,4 @@
-
-using GlowingSystem.DataAccess;
+using GlowingSystem.MappingProfiles;
 
 namespace GlowingSystem
 {
@@ -18,6 +17,7 @@ namespace GlowingSystem
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<DataAccessMappingProfile>();
+                cfg.AddProfile<BusinessLogicMappingProfile>();
             });
 
             builder.Services.AddEndpointsApiExplorer();

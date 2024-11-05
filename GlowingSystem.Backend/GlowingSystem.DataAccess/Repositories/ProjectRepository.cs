@@ -15,7 +15,7 @@ namespace GlowingSystem.DataAccess.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Guid> CreateProject(Project project)
+        public async Task<Guid> CreateProjectAsync(Project project)
         {
             var projectEntity = _mapper.Map<Project, ProjectEntity>(project);
             await _context.Projects.AddAsync(projectEntity);
@@ -24,29 +24,47 @@ namespace GlowingSystem.DataAccess.Repositories
             return projectEntity.Id;
         }
 
-        public async Task<bool> DeleteProject(Guid id)
+        public async Task DeleteProjectAsync(Guid id)
         {
             var dbProject = await _context.Projects.FindAsync(id);
             if (dbProject == null)
-                return false;
+                throw new Exception();
 
-            await _context.Projects.Where(p => p.Id == id).ExecuteDeleteAsync();
-            return true;
+            await _context.Projects.Where(p => p.Id.Equals(id)).ExecuteDeleteAsync();
         }
 
-        public Task<Project> GetProjectById(Guid id)
+        public async Task<Project> GetProjectByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var project = await _context.Projects.AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id.Equals(id));
+            if (project == null)
+                throw new Exception();
+
+            return _mapper.Map<Project>(project);
         }
 
-        public Task<List<Project>> GetProjects()
+        public async Task<IEnumerable<Project>?> GetProjectsAsync()
         {
-            throw new NotImplementedException();
+            List<Project> projects = await _context.Projects.AsNoTracking()
+                .Select(project => 
+                   _mapper.Map<ProjectEntity, Project>(project))
+                .ToListAsync();
+
+            if (projects.Count == 0)
+                return null;
+
+            return projects;
         }
 
-        public Task<Project?> UpdateProject(Project project)
+        public async Task UpdateProjectAsync(Project project)
         {
-            throw new NotImplementedException();
+            var dbProject = await _context.Projects.FirstOrDefaultAsync(p => p.Id.Equals(project.Id));
+            if (dbProject == null)
+                throw new Exception();
+
+            dbProject = _mapper.Map<Project, ProjectEntity>(project);
+            _context.Update(dbProject);
+            await _context.SaveChangesAsync();
         }
     }
 }

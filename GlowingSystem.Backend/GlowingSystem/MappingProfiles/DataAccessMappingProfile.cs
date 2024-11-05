@@ -2,7 +2,7 @@
 using GlowingSystem.Core.Models;
 using GlowingSystem.DataAccess.Entities;
 
-namespace GlowingSystem.DataAccess
+namespace GlowingSystem.MappingProfiles
 {
     public class DataAccessMappingProfile : Profile
     {
