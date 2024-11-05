@@ -25,5 +25,6 @@ namespace GlowingSystem.DataAccess.Entities
         public string Email { get; set; } = string.Empty;
         public required bool IsManager { get; set; }
         public List<EmployeeProject> EmployeeProject { get; set; } = new();
+        public List<ProjectEntity> Projects { get; set; } = new();
     }
 }

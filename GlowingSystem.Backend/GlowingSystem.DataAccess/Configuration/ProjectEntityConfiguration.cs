@@ -8,6 +8,8 @@ namespace GlowingSystem.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<ProjectEntity> builder)
         {
+            builder.HasIndex(p => p.ProjectName).IsUnique(true);
+
             builder.HasData
             (
                 new ProjectEntity()

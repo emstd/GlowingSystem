@@ -8,6 +8,8 @@ namespace GlowingSystem.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<EmployeeEntity> builder)
         {
+            builder.HasIndex(e => e.Email).IsUnique();
+
             builder.HasData
             (
                 new EmployeeEntity()

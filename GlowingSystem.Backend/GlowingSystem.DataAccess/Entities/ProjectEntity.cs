@@ -22,5 +22,6 @@ namespace GlowingSystem.DataAccess.Entities
         public DateTime? EndDate { get; set; }
         public int Priority { get; set; }
         public List<EmployeeProject> EmployeeProject { get; set; } = new();
+        public List<EmployeeEntity> Employees { get; set; } = new();
     }
 }

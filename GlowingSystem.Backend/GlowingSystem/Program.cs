@@ -1,4 +1,6 @@
 
+using GlowingSystem.DataAccess;
+
 namespace GlowingSystem
 {
     public class Program
@@ -12,6 +14,12 @@ namespace GlowingSystem
             builder.Services.AddControllers()
                 .AddApplicationPart(typeof(API.AssemblyReference).Assembly);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<DataAccessMappingProfile>();
+            });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
