@@ -1,6 +1,6 @@
 ﻿namespace GlowingSystem.Core.DataTransferObjects
 {
-    public class ProjectForCreateDto
+    public record ProjectForCreateDto
     {
         public required string ProjectName { get; set; }
         public Guid CustomerId { get; set; }

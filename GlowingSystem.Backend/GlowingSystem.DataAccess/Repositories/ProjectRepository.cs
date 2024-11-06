@@ -26,8 +26,8 @@ namespace GlowingSystem.DataAccess.Repositories
 
         public async Task DeleteProjectAsync(Guid id)
         {
-            var dbProject = await _context.Projects.FindAsync(id);
-            if (dbProject == null)
+            var projectEntity = await _context.Projects.FindAsync(id);
+            if (projectEntity == null)
                 throw new Exception();
 
             await _context.Projects.Where(p => p.Id.Equals(id)).ExecuteDeleteAsync();
@@ -35,35 +35,30 @@ namespace GlowingSystem.DataAccess.Repositories
 
         public async Task<Project> GetProjectByIdAsync(Guid id)
         {
-            var project = await _context.Projects.AsNoTracking()
+            var projectEntity = await _context.Projects.AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id.Equals(id));
-            if (project == null)
+            if (projectEntity == null)
                 throw new Exception();
 
-            return _mapper.Map<Project>(project);
+            return _mapper.Map<Project>(projectEntity);
         }
 
         public async Task<IEnumerable<Project>?> GetProjectsAsync()
         {
             List<Project> projects = await _context.Projects.AsNoTracking()
-                .Select(project => 
-                   _mapper.Map<ProjectEntity, Project>(project))
+                .Select(project => _mapper.Map<ProjectEntity, Project>(project))
                 .ToListAsync();
-
-            if (projects.Count == 0)
-                return null;
 
             return projects;
         }
 
         public async Task UpdateProjectAsync(Project project)
         {
-            var dbProject = await _context.Projects.FirstOrDefaultAsync(p => p.Id.Equals(project.Id));
-            if (dbProject == null)
+            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id.Equals(project.Id));
+            if (projectEntity == null)
                 throw new Exception();
 
-            dbProject = _mapper.Map<Project, ProjectEntity>(project);
-            _context.Update(dbProject);
+            _mapper.Map(project, projectEntity);
             await _context.SaveChangesAsync();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using GlowingSystem.Core.DataTransferObjects;
-using GlowingSystem.Core.Models;
 
 namespace GlowingSystem.Core.Interfaces.Services
 {

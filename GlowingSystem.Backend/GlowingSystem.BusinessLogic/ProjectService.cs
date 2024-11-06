@@ -36,8 +36,8 @@ namespace GlowingSystem.BusinessLogic
 
         public async Task<IEnumerable<ProjectDto>?> GetProjectsAsync()
         {
-            var project = await _repository.GetProjectsAsync();
-            var projectsDto = _mapper.Map<IEnumerable<ProjectDto>>(project);
+            var projects = await _repository.GetProjectsAsync();
+            var projectsDto = _mapper.Map<IEnumerable<ProjectDto>>(projects);
             
             return projectsDto;
         }
