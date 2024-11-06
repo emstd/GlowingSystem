@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GlowingSystem.API\GlowingSystem.API.csproj" />
+    <ProjectReference Include="..\GlowingSystem.BusinessLogic\GlowingSystem.BusinessLogic.csproj" />
     <ProjectReference Include="..\GlowingSystem.DataAccess\GlowingSystem.DataAccess.csproj" />
   </ItemGroup>
 

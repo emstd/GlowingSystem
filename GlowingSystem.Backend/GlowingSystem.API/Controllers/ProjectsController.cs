@@ -19,6 +19,7 @@ namespace GlowingSystem.API.Controllers
         public async Task<IActionResult> GetProjects()
         {
             var projects = await _service.GetProjectsAsync();
+
             return Ok(projects);
         }
 

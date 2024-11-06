@@ -18,7 +18,7 @@ namespace GlowingSystem.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompanyName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    ContractorName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,7 @@ namespace GlowingSystem.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CompanyName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,6 +83,30 @@ namespace GlowingSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmployeeEntityProjectEntity",
+                columns: table => new
+                {
+                    EmployeesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProjectsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeEntityProjectEntity", x => new { x.EmployeesId, x.ProjectsId });
+                    table.ForeignKey(
+                        name: "FK_EmployeeEntityProjectEntity_Employees_EmployeesId",
+                        column: x => x.EmployeesId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeEntityProjectEntity_Projects_ProjectsId",
+                        column: x => x.ProjectsId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmployeeProject",
                 columns: table => new
                 {
@@ -108,7 +132,7 @@ namespace GlowingSystem.Migrations
 
             migrationBuilder.InsertData(
                 table: "Contractors",
-                columns: new[] { "Id", "CompanyName" },
+                columns: new[] { "Id", "ContractorName" },
                 values: new object[,]
                 {
                     { new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"), "GenialSolutions" },
@@ -117,7 +141,7 @@ namespace GlowingSystem.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "CompanyName" },
+                columns: new[] { "Id", "CustomerName" },
                 values: new object[,]
                 {
                     { new Guid("02ac74f4-5bd6-49e3-ab8e-5c817b665eb9"), "Yanbex" },
@@ -162,9 +186,20 @@ namespace GlowingSystem.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeEntityProjectEntity_ProjectsId",
+                table: "EmployeeEntityProjectEntity",
+                column: "ProjectsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeProject_EmployeeId",
                 table: "EmployeeProject",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_Email",
+                table: "Employees",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_ContractorId",
@@ -175,11 +210,20 @@ namespace GlowingSystem.Migrations
                 name: "IX_Projects_CustomerId",
                 table: "Projects",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_ProjectName",
+                table: "Projects",
+                column: "ProjectName",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EmployeeEntityProjectEntity");
+
             migrationBuilder.DropTable(
                 name: "EmployeeProject");
 

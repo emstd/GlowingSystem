@@ -3,6 +3,6 @@
     public class Customer
     {
         public required Guid Id { get; set; }
-        public string CompanyName { get; set; } = string.Empty;
+        public string CustomerName { get; set; } = string.Empty;
     }
 }

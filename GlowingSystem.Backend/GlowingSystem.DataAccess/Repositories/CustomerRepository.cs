@@ -20,7 +20,7 @@ namespace GlowingSystem.DataAccess.Repositories
         public async Task<Guid> CreateCustomerAsync(Customer customer)
         {
             var customerEntity = _mapper.Map<Customer, CustomerEntity>(customer);
-            await _context.Customers.AddAsync(customerEntity);
+            _context.Customers.Add(customerEntity);
             await _context.SaveChangesAsync();
 
             return customerEntity.Id;

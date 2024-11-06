@@ -18,7 +18,7 @@ namespace GlowingSystem.DataAccess.Repositories
         public async Task<Guid> CreateProjectAsync(Project project)
         {
             var projectEntity = _mapper.Map<Project, ProjectEntity>(project);
-            await _context.Projects.AddAsync(projectEntity);
+            _context.Projects.Add(projectEntity);
             await _context.SaveChangesAsync();
 
             return projectEntity.Id;

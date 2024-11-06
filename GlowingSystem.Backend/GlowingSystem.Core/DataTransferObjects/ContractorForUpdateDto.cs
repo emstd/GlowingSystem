@@ -1,7 +1,7 @@
 ﻿namespace GlowingSystem.Core.DataTransferObjects
 {
-    public class ContractorForUpdateDto
+    public record ContractorForUpdateDto
     {
-        public string CotnractorName { get; set; } = string.Empty;
+        public required string ContractorName { get; set; }
     }
 }

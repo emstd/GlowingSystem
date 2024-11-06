@@ -3,6 +3,6 @@
     public record CustomerDto
     {
         public required Guid Id { get; set; }
-        public string CustomerName { get; set; } = string.Empty;
+        public required string CustomerName { get; set; }
     }
 }

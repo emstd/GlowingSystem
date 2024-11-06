@@ -13,12 +13,12 @@ namespace GlowingSystem.DataAccess.Configuration
                 new ContractorEntity()
                 {
                     Id = new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"),
-                    CompanyName = "GenialSolutions"
+                    ContractorName = "GenialSolutions"
                 },
                 new ContractorEntity()
                 {
                     Id = new Guid("d62ae88b-9c70-4707-8620-1fc44b85ecdf"),
-                    CompanyName = "VeryFastSolutions"
+                    ContractorName = "VeryFastSolutions"
                 }
             );
         }

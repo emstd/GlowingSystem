@@ -3,6 +3,6 @@
     public record ContractorDto
     {
         public required Guid Id { get; set; }
-        public string CotnractorName { get; set; } = string.Empty;
+        public required string ContractorName { get; set; }
     }
 }

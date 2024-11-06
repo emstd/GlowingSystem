@@ -22,13 +22,28 @@ namespace GlowingSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EmployeeEntityProjectEntity", b =>
+                {
+                    b.Property<Guid>("EmployeesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProjectsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EmployeesId", "ProjectsId");
+
+                    b.HasIndex("ProjectsId");
+
+                    b.ToTable("EmployeeEntityProjectEntity");
+                });
+
             modelBuilder.Entity("GlowingSystem.DataAccess.Entities.ContractorEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CompanyName")
+                    b.Property<string>("ContractorName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -41,12 +56,12 @@ namespace GlowingSystem.Migrations
                         new
                         {
                             Id = new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"),
-                            CompanyName = "GenialSolutions"
+                            ContractorName = "GenialSolutions"
                         },
                         new
                         {
                             Id = new Guid("d62ae88b-9c70-4707-8620-1fc44b85ecdf"),
-                            CompanyName = "VeryFastSolutions"
+                            ContractorName = "VeryFastSolutions"
                         });
                 });
 
@@ -56,7 +71,7 @@ namespace GlowingSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CompanyName")
+                    b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -69,17 +84,17 @@ namespace GlowingSystem.Migrations
                         new
                         {
                             Id = new Guid("02ac74f4-5bd6-49e3-ab8e-5c817b665eb9"),
-                            CompanyName = "Yanbex"
+                            CustomerName = "Yanbex"
                         },
                         new
                         {
                             Id = new Guid("39156042-6faf-45f3-b0e9-65f0c1b34ecd"),
-                            CompanyName = "Goodle"
+                            CustomerName = "Goodle"
                         },
                         new
                         {
                             Id = new Guid("a3f97ff5-f4e9-48a1-a7eb-d84f0c48c460"),
-                            CompanyName = "Ramdler"
+                            CustomerName = "Ramdler"
                         });
                 });
 
@@ -113,6 +128,9 @@ namespace GlowingSystem.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Employees");
 
@@ -239,6 +257,9 @@ namespace GlowingSystem.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("ProjectName")
+                        .IsUnique();
+
                     b.ToTable("Projects");
 
                     b.HasData(
@@ -280,6 +301,21 @@ namespace GlowingSystem.Migrations
                             ProjectName = "studious-doodle",
                             StartDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("EmployeeEntityProjectEntity", b =>
+                {
+                    b.HasOne("GlowingSystem.DataAccess.Entities.EmployeeEntity", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GlowingSystem.DataAccess.Entities.ProjectEntity", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GlowingSystem.DataAccess.Entities.EmployeeProject", b =>

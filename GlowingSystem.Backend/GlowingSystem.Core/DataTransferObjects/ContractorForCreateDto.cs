@@ -2,6 +2,6 @@
 {
     public record ContractorForCreateDto
     {
-        public string CotnractorName { get; set; } = string.Empty;
+        public required string ContractorName { get; set; }
     }
 }

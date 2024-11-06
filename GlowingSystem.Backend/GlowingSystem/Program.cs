@@ -1,3 +1,4 @@
+using GlowingSystem.Extensions;
 using GlowingSystem.MappingProfiles;
 
 namespace GlowingSystem
@@ -10,9 +11,13 @@ namespace GlowingSystem
 
             // Add services to the container.
 
+            builder.Services.ConfigureCors();
+            builder.Services.ConfigureSqlContext(builder.Configuration);
+            builder.Services.AddServices();
+            builder.Services.AddRepositories();
+
             builder.Services.AddControllers()
                 .AddApplicationPart(typeof(API.AssemblyReference).Assembly);
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
             builder.Services.AddAutoMapper(cfg =>
             {
