@@ -40,7 +40,7 @@ namespace GlowingSystem.API.Controllers
             //ActionFilter
             var createdProjectGuid = await _service.CreateProjectAsync(projectForCreateDto);
 
-            return CreatedAtRoute("ProjectById", new { id = createdProjectGuid });
+            return Ok(createdProjectGuid);
         }
 
         [HttpPut("{id:guid}")]

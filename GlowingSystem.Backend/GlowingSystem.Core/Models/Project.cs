@@ -9,6 +9,7 @@
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int Priority { get; set; }
-        public List<Guid>? Employees { get; set; }
+        public List<Employee>? Employees { get; set; }
+        public List<Guid>? EmployeesIds { get; set; }
     }
 }
