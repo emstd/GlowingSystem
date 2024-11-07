@@ -17,7 +17,18 @@ namespace GlowingSystem.DataAccess.Repositories
         }
         public async Task<Guid> CreateProjectAsync(Project project)
         {
-            var projectEntity = _mapper.Map<Project, ProjectEntity>(project);
+            ProjectEntity projectEntity = new()
+            {
+                ProjectName = project.ProjectName,
+                CustomerId = project.CustomerId,
+                ContractorId = project.ContractorId,
+                StartDate = project.StartDate,
+                Priority = project.Priority,
+                Employees = project.Employees == null ? null : await _context.Employees
+                    .Where(e => project.Employees.Contains(e.Id))
+                    .ToListAsync()
+            };
+
             _context.Projects.Add(projectEntity);
             await _context.SaveChangesAsync();
 
@@ -40,13 +51,42 @@ namespace GlowingSystem.DataAccess.Repositories
             if (projectEntity == null)
                 throw new Exception();
 
-            return _mapper.Map<Project>(projectEntity);
+            var project = new Project()
+            {
+                Id = projectEntity.Id,
+                ProjectName = projectEntity.ProjectName,
+                CustomerId = projectEntity.CustomerId,
+                ContractorId = projectEntity.ContractorId,
+                StartDate = projectEntity.StartDate,
+                EndDate = projectEntity.EndDate,
+                Priority = projectEntity.Priority,
+                Employees = projectEntity.Employees.Select(e => e.Id).ToList(),
+            };
+
+            return project;
         }
 
         public async Task<IEnumerable<Project>?> GetProjectsAsync()
         {
+            //var projectss = await _context.Projects.AsNoTracking().Include(p => p.Employees).ToListAsync();
+
+            List<ProjectEntity> projectss = await _context.Projects.AsNoTracking()
+                .Include(p => p.Employees)
+                .ToListAsync();
+
             List<Project> projects = await _context.Projects.AsNoTracking()
-                .Select(project => _mapper.Map<ProjectEntity, Project>(project))
+                .Include(p => p.Employees)
+                .Select(p => new Project
+                {
+                    Id = p.Id,
+                    ProjectName = p.ProjectName,
+                    CustomerId = p.CustomerId,
+                    ContractorId = p.ContractorId,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate,
+                    Priority = p.Priority,
+                    Employees = p.Employees.Select(e => e.Id).ToList(),
+                })
                 .ToListAsync();
 
             return projects;

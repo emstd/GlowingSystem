@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GlowingSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +63,8 @@ namespace GlowingSystem.Migrations
                     ContractorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StartDate = table.Column<DateTime>(type: "DATE", nullable: false),
                     EndDate = table.Column<DateTime>(type: "DATE", nullable: true),
-                    Priority = table.Column<int>(type: "int", nullable: false)
+                    Priority = table.Column<int>(type: "int", nullable: false),
+                    EmployeesIds = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,30 +84,6 @@ namespace GlowingSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmployeeEntityProjectEntity",
-                columns: table => new
-                {
-                    EmployeesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProjectsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeEntityProjectEntity", x => new { x.EmployeesId, x.ProjectsId });
-                    table.ForeignKey(
-                        name: "FK_EmployeeEntityProjectEntity_Employees_EmployeesId",
-                        column: x => x.EmployeesId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmployeeEntityProjectEntity_Projects_ProjectsId",
-                        column: x => x.ProjectsId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EmployeeProject",
                 columns: table => new
                 {
@@ -115,7 +92,7 @@ namespace GlowingSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeProject", x => new { x.ProjectId, x.EmployeeId });
+                    table.PrimaryKey("PK_EmployeeProject", x => new { x.EmployeeId, x.ProjectId });
                     table.ForeignKey(
                         name: "FK_EmployeeProject_Employees_EmployeeId",
                         column: x => x.EmployeeId,
@@ -162,13 +139,13 @@ namespace GlowingSystem.Migrations
 
             migrationBuilder.InsertData(
                 table: "Projects",
-                columns: new[] { "Id", "ContractorId", "CustomerId", "EndDate", "Priority", "ProjectName", "StartDate" },
+                columns: new[] { "Id", "ContractorId", "CustomerId", "EmployeesIds", "EndDate", "Priority", "ProjectName", "StartDate" },
                 values: new object[,]
                 {
-                    { new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d"), new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"), new Guid("02ac74f4-5bd6-49e3-ab8e-5c817b665eb9"), new DateTime(2024, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "miniature-lamp", new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("99711a37-b15e-4f05-82e8-3dfc38b39fe0"), new Guid("d62ae88b-9c70-4707-8620-1fc44b85ecdf"), new Guid("02ac74f4-5bd6-49e3-ab8e-5c817b665eb9"), null, 1, "studious-doodle", new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612"), new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"), new Guid("a3f97ff5-f4e9-48a1-a7eb-d84f0c48c460"), null, 1, "congenial-octo-memory", new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095"), new Guid("d62ae88b-9c70-4707-8620-1fc44b85ecdf"), new Guid("39156042-6faf-45f3-b0e9-65f0c1b34ecd"), new DateTime(2024, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "congenial-waffle", new DateTime(2024, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d"), new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"), new Guid("02ac74f4-5bd6-49e3-ab8e-5c817b665eb9"), null, new DateTime(2024, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "miniature-lamp", new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("99711a37-b15e-4f05-82e8-3dfc38b39fe0"), new Guid("d62ae88b-9c70-4707-8620-1fc44b85ecdf"), new Guid("02ac74f4-5bd6-49e3-ab8e-5c817b665eb9"), null, null, 1, "studious-doodle", new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612"), new Guid("b6d1cdf7-7eea-4524-a524-ff50f40a981b"), new Guid("a3f97ff5-f4e9-48a1-a7eb-d84f0c48c460"), null, null, 1, "congenial-octo-memory", new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095"), new Guid("d62ae88b-9c70-4707-8620-1fc44b85ecdf"), new Guid("39156042-6faf-45f3-b0e9-65f0c1b34ecd"), null, new DateTime(2024, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "congenial-waffle", new DateTime(2024, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -180,20 +157,15 @@ namespace GlowingSystem.Migrations
                     { new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9"), new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d") },
                     { new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9"), new Guid("99711a37-b15e-4f05-82e8-3dfc38b39fe0") },
                     { new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9"), new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612") },
-                    { new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889"), new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612") },
                     { new Guid("ca7744f2-77f0-4cc6-982d-2bb904a43bf3"), new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095") },
+                    { new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889"), new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612") },
                     { new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889"), new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095") }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeEntityProjectEntity_ProjectsId",
-                table: "EmployeeEntityProjectEntity",
-                column: "ProjectsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeProject_EmployeeId",
+                name: "IX_EmployeeProject_ProjectId",
                 table: "EmployeeProject",
-                column: "EmployeeId");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_Email",
@@ -221,9 +193,6 @@ namespace GlowingSystem.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "EmployeeEntityProjectEntity");
-
             migrationBuilder.DropTable(
                 name: "EmployeeProject");
 

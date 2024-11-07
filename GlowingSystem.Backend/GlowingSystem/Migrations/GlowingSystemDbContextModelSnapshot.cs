@@ -22,21 +22,6 @@ namespace GlowingSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EmployeeEntityProjectEntity", b =>
-                {
-                    b.Property<Guid>("EmployeesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProjectsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("EmployeesId", "ProjectsId");
-
-                    b.HasIndex("ProjectsId");
-
-                    b.ToTable("EmployeeEntityProjectEntity");
-                });
-
             modelBuilder.Entity("GlowingSystem.DataAccess.Entities.ContractorEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -175,53 +160,53 @@ namespace GlowingSystem.Migrations
 
             modelBuilder.Entity("GlowingSystem.DataAccess.Entities.EmployeeProject", b =>
                 {
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ProjectId", "EmployeeId");
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasKey("EmployeeId", "ProjectId");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("EmployeeProject");
 
                     b.HasData(
                         new
                         {
-                            ProjectId = new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d"),
-                            EmployeeId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9")
+                            EmployeeId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9"),
+                            ProjectId = new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d")
                         },
                         new
                         {
-                            ProjectId = new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d"),
-                            EmployeeId = new Guid("2d27d4d3-82d9-438f-bdbd-a863eb6e5815")
+                            EmployeeId = new Guid("2d27d4d3-82d9-438f-bdbd-a863eb6e5815"),
+                            ProjectId = new Guid("0461d05b-fecd-49ee-aa36-d8ae9252f89d")
                         },
                         new
                         {
-                            ProjectId = new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095"),
-                            EmployeeId = new Guid("ca7744f2-77f0-4cc6-982d-2bb904a43bf3")
+                            EmployeeId = new Guid("ca7744f2-77f0-4cc6-982d-2bb904a43bf3"),
+                            ProjectId = new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095")
                         },
                         new
                         {
-                            ProjectId = new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095"),
-                            EmployeeId = new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889")
+                            EmployeeId = new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889"),
+                            ProjectId = new Guid("b9f15649-3b79-4773-9ec7-65f249cc9095")
                         },
                         new
                         {
-                            ProjectId = new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612"),
-                            EmployeeId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9")
+                            EmployeeId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9"),
+                            ProjectId = new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612")
                         },
                         new
                         {
-                            ProjectId = new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612"),
-                            EmployeeId = new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889")
+                            EmployeeId = new Guid("d0a926b8-8272-4e91-95de-2ed54dc14889"),
+                            ProjectId = new Guid("a3927bc2-4c76-4c2e-98f2-d06b422cb612")
                         },
                         new
                         {
-                            ProjectId = new Guid("99711a37-b15e-4f05-82e8-3dfc38b39fe0"),
-                            EmployeeId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9")
+                            EmployeeId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9"),
+                            ProjectId = new Guid("99711a37-b15e-4f05-82e8-3dfc38b39fe0")
                         });
                 });
 
@@ -236,6 +221,9 @@ namespace GlowingSystem.Migrations
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EmployeesIds")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("DATE");
@@ -301,21 +289,6 @@ namespace GlowingSystem.Migrations
                             ProjectName = "studious-doodle",
                             StartDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("EmployeeEntityProjectEntity", b =>
-                {
-                    b.HasOne("GlowingSystem.DataAccess.Entities.EmployeeEntity", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GlowingSystem.DataAccess.Entities.ProjectEntity", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("GlowingSystem.DataAccess.Entities.EmployeeProject", b =>

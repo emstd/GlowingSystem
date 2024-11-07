@@ -8,13 +8,6 @@ namespace GlowingSystem.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<EmployeeProject> builder)
         {
-            builder.HasKey(ep => new { ep.ProjectId, ep.EmployeeId});
-            builder.HasOne(ep => ep.Project)
-                .WithMany(p => p.EmployeeProject)
-                .HasForeignKey(ep => ep.ProjectId);
-            builder.HasOne(ep => ep.Employee)
-                .WithMany(e => e.EmployeeProject)
-                .HasForeignKey(ep => ep.EmployeeId);
             builder.HasData
             (
                 new EmployeeProject()

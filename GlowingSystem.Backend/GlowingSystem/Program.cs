@@ -1,5 +1,6 @@
 using GlowingSystem.Extensions;
 using GlowingSystem.MappingProfiles;
+using System.Text.Json.Serialization;
 
 namespace GlowingSystem
 {
@@ -17,7 +18,11 @@ namespace GlowingSystem
             builder.Services.AddRepositories();
 
             builder.Services.AddControllers()
-                .AddApplicationPart(typeof(API.AssemblyReference).Assembly);
+                .AddApplicationPart(typeof(API.AssemblyReference).Assembly)
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                });
 
             builder.Services.AddAutoMapper(cfg =>
             {

@@ -45,7 +45,7 @@ namespace GlowingSystem.DataAccess.Repositories
 
         public async Task<IEnumerable<Employee>?> GetEmployeesAsync()
         {
-            List<Employee> employees = await _context.Employees.AsNoTracking()
+            List<Employee> employees = await _context.Employees.AsNoTracking().Include(e => e.Projects)
                 .Select(e => _mapper.Map<EmployeeEntity, Employee>(e))
                 .ToListAsync();
 

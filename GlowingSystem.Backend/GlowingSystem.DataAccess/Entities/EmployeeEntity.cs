@@ -24,7 +24,7 @@ namespace GlowingSystem.DataAccess.Entities
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; } = string.Empty;
         public required bool IsManager { get; set; }
-        public List<EmployeeProject> EmployeeProject { get; set; } = new();
-        public List<ProjectEntity> Projects { get; set; } = new();
+        public List<EmployeeProject>? EmployeeProject { get; set; }
+        public List<ProjectEntity>? Projects { get; set; }
     }
 }

@@ -9,7 +9,21 @@ namespace GlowingSystem.DataAccess.Configuration
         public void Configure(EntityTypeBuilder<ProjectEntity> builder)
         {
             builder.HasIndex(p => p.ProjectName).IsUnique(true);
-
+            builder.HasMany(p => p.Employees)
+                .WithMany(e => e.Projects)
+                .UsingEntity<EmployeeProject>
+                (
+                    EPbuilder => EPbuilder
+                        .HasOne(ep => ep.Employee)
+                        .WithMany(e => e.EmployeeProject)
+                        .HasForeignKey(ep => ep.EmployeeId),
+                    EPBuilder => EPBuilder
+                        .HasOne(ep => ep.Project)
+                        .WithMany(p => p.EmployeeProject)
+                        .HasForeignKey(ep => ep.ProjectId),
+                    EPBuilder => EPBuilder
+                        .HasKey(ep => new {ep.EmployeeId, ep.ProjectId})
+                );
             builder.HasData
             (
                 new ProjectEntity()
