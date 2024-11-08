@@ -38,7 +38,7 @@ namespace GlowingSystem.API.Controllers
         {
             var createdCustomerGuid = await _service.CreateCustomerAsync(customerForCreateDto);
 
-            return CreatedAtRoute("CustomerById", new { id = createdCustomerGuid });
+            return CreatedAtRoute("CustomerById", new { id = createdCustomerGuid }, createdCustomerGuid);
         }
 
         [HttpPut("{id:guid}")]

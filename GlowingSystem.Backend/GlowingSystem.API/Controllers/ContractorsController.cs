@@ -38,7 +38,7 @@ namespace GlowingSystem.API.Controllers
         {
             var createdContractorGuid = await _service.CreateContractorAsync(contractorForCreateDto);
 
-            return CreatedAtRoute("ContractorById", new { id =  createdContractorGuid });
+            return Ok(createdContractorGuid);
         }
 
         [HttpPut("{id:guid}")]

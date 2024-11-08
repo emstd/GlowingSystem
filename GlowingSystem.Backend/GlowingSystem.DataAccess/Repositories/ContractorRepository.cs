@@ -31,7 +31,7 @@ namespace GlowingSystem.DataAccess.Repositories
             if (contractorEntity == null)
                 throw new Exception();
 
-            await _context.Projects.Where(c => c.Id.Equals(id)).ExecuteDeleteAsync();
+            await _context.Contractors.Where(c => c.Id.Equals(id)).ExecuteDeleteAsync();
         }
 
         public async Task<Contractor> GetContractorByIdAsync(Guid id)

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GlowingSystem.Core.Interfaces.Repositories;
-using GlowingSystem.Core.Interfaces.Services;
 using GlowingSystem.Core.Models;
 using GlowingSystem.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +43,9 @@ namespace GlowingSystem.DataAccess.Repositories
         public async Task<Project> GetProjectByIdAsync(Guid id)
         {
             var projectEntity = await _context.Projects.AsNoTracking()
+                .Include(p => p.Employees)
                 .FirstOrDefaultAsync(p => p.Id.Equals(id));
+
             if (projectEntity == null)
                 throw new Exception();
 
