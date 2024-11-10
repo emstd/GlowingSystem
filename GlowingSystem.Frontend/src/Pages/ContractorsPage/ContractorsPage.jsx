@@ -1,4 +1,4 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, ChevronLeftIcon } from "@chakra-ui/icons";
 import { Box, 
   Button, 
   Input, 
@@ -6,7 +6,7 @@ import { Box,
   MenuButton,
   MenuItem,
   MenuList } from "@chakra-ui/react";
-import { Form, useLoaderData } from "react-router-dom"
+import { Form, useLoaderData, Link } from "react-router-dom"
 import DisplayContractor from "./Components/DisplayContractor";
 
 
@@ -15,7 +15,8 @@ function ContractorsPage(){
 
   return(
     <Box>
-      <Box>
+      <Link to='/'><Button><ChevronLeftIcon mt={'3px'} mr={'2px'}/>Назад</Button></Link>
+      <Box mt='4vh'>
           {contractors.length ? (contractors.map(contractor => (
             <DisplayContractor key={contractor.id} contractor={contractor} />
           )))

@@ -1,12 +1,13 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, ChevronLeftIcon  } from "@chakra-ui/icons";
 import { Box, 
   Button, 
   Input, 
   Menu, 
   MenuButton,
   MenuItem,
-  MenuList } from "@chakra-ui/react";
-import { Form, useLoaderData } from "react-router-dom"
+  MenuList
+} from "@chakra-ui/react";
+import { Form, useLoaderData, Link } from "react-router-dom"
 import DisplayCustomer from "./Components/DisplayCustomer";
 
 function CustomersPage(){
@@ -14,7 +15,8 @@ function CustomersPage(){
 
   return(
     <Box>
-      <Box>
+      <Link to='/'><Button><ChevronLeftIcon mt={'3px'} mr={'2px'}/>Назад</Button></Link>
+      <Box mt='4vh'>
           {customers.length ? (customers.map(customer => (
             <DisplayCustomer key={customer.id} customer={customer} />
           )))

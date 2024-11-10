@@ -7,7 +7,9 @@ import { APIClient } from './APIClient'
 import ErrorPage from './Pages/ErrorPage/error-page'
 import CustomersPage from './Pages/CustomersPage/CustomersPage'
 import MainPage from "./Pages/MainPage/MainPage";
-import ContractorsPage from "./Pages/Contractors/ContractorsPage";
+import ContractorsPage from "./Pages/ContractorsPage/ContractorsPage";
+import EmployeesPage from "./Pages/EmployeesPage/EmployeesPage";
+import EmployeeUpdatePage from "./Pages/EmployeesPage/Components/EmployeeUpdatePage"
 
 const API = new APIClient();
 
@@ -54,6 +56,18 @@ const router = createBrowserRouter([
       {
         path: "contractors/delete/:contractorId",
         action: API.DeleteContractor
+      },
+
+      //CRUD employees
+      {
+        path: "employees",
+        element: <EmployeesPage />,
+        loader: API.GetEmployees
+      },
+      {
+        path: "employees/:employeeId/update",
+        element: <EmployeeUpdatePage />,
+        loader: API.GetEmployeeById
       }
     ],
   },

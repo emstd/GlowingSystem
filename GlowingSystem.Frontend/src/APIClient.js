@@ -106,4 +106,22 @@ export class APIClient
 
     return redirect('/contractors');
   }
+
+  //Employees
+  GetEmployees = async () =>
+  {
+    const response = await fetch(`${this.URL}/api/employees`);
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+  };
+
+  GetEmployeeById = async ( {params} ) =>
+  {
+    const response = await fetch(`${this.URL}/api/employees/${params.employeeId}`)
+    const jsonResponse = await response.json();
+    console.log(jsonResponse);
+
+    return jsonResponse;
+  }
 };
