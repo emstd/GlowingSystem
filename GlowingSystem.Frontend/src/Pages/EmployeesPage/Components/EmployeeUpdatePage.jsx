@@ -1,18 +1,20 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useNavigate } from "react-router-dom";
 import {
   Box,
   Checkbox,
   Divider,
   Input,
   Text,
+  Button
 } from '@chakra-ui/react';
 
 function EmployeeUpdatePage(){
   const employee = useLoaderData();
+  const navigate = useNavigate();
 
   return(
     <>
-      <Form method="POST">
+      <Form method="POST" id="update-employee-form">
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Фамилия:</Text>
@@ -20,7 +22,7 @@ function EmployeeUpdatePage(){
               width='50%'
               type="text"
               name="lastName"
-              value={employee.lastName}
+              defaultValue={employee.lastName}
             />
           </Box>
         </Box>
@@ -33,7 +35,7 @@ function EmployeeUpdatePage(){
               width='50%'
               type="text"
               name="firstName"
-              value={employee.firstName}
+              defaultValue={employee.firstName}
             />
           </Box>
         </Box>
@@ -45,8 +47,8 @@ function EmployeeUpdatePage(){
             <Input
               width='50%'
               type="text"
-              name="firstName"
-              value={employee.surname}
+              name="surname"
+              defaultValue={employee.surname}
             />
           </Box>
         </Box>
@@ -58,11 +60,21 @@ function EmployeeUpdatePage(){
             <Checkbox
               width='50%'
               type="checkbox"
-              name="firstName"
+              name="isManager"
               size='lg'
-              value={employee.isManager}
+              isChecked={employee.isManager ? true : undefined}
             />
           </Box>
+        </Box>
+
+        <Box width='30%' display='flex' justifyContent='space-between' ml='20%' mt='10vh'>
+          <Button bgColor='green' type="submit">Сохранить</Button>
+          <Button bgColor='red'
+            onClick={() => {
+              navigate(-1);
+            }
+          }
+          >   Отмена  </Button>
         </Box>
       </Form>
     </>

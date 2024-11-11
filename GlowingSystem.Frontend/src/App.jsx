@@ -67,7 +67,8 @@ const router = createBrowserRouter([
       {
         path: "employees/:employeeId/update",
         element: <EmployeeUpdatePage />,
-        loader: API.GetEmployeeById
+        loader: API.GetEmployeeById,
+        action: API.UpdateEmployee
       }
     ],
   },

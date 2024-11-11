@@ -120,8 +120,17 @@ export class APIClient
   {
     const response = await fetch(`${this.URL}/api/employees/${params.employeeId}`)
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
 
     return jsonResponse;
+  }
+
+  UpdateEmployee = async({ params, request }) =>
+  {
+    const formData = await request.formData();
+    console.log(JSON.stringify(formData));
+    const updateEmployee = { ...Object.fromEntries(formData) };
+    console.log(JSON.stringify(updateEmployee));
+
+    return null;
   }
 };
