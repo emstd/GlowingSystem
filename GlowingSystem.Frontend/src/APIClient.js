@@ -118,7 +118,7 @@ export class APIClient
 
   GetEmployeeById = async ( {params} ) =>
   {
-    const response = await fetch(`${this.URL}/api/employees/${params.employeeId}`)
+    const response = await fetch(`${this.URL}/api/employees/${params.employeeId}`);
     const jsonResponse = await response.json();
 
     return jsonResponse;
@@ -127,10 +127,61 @@ export class APIClient
   UpdateEmployee = async({ params, request }) =>
   {
     const formData = await request.formData();
-    console.log(JSON.stringify(formData));
-    const updateEmployee = { ...Object.fromEntries(formData) };
-    console.log(JSON.stringify(updateEmployee));
+    const isManagerTrue = formData.get('isManagerTrue');
 
-    return null;
+    let isManager = isManagerTrue === 'true';
+
+    const updatedEmployee = Object.fromEntries(formData);
+
+    delete updatedEmployee.isManagerTrue;
+    delete updatedEmployee.isManagerFalse;
+
+    updatedEmployee.isManager = isManager;
+
+    await fetch(`${this.URL}/api/employees/${params.employeeId}`,
+      {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedEmployee)
+      }
+    );
+
+    return redirect('/employees');
+  }
+
+  CreateEmployee = async({ request }) =>
+  {
+    const formData = await request.formData();
+
+    const isManagerTrue = formData.get('isManagerTrue');
+    let isManager = isManagerTrue === 'true';
+    
+    const newEmployee = Object.fromEntries(formData);
+
+    delete newEmployee.isManagerTrue;
+    delete newEmployee.isManagerFalse;
+
+    newEmployee.isManager = isManager;
+
+    const respone = await fetch(`${this.URL}/api/employees`,
+      {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEmployee)
+      }
+    )
+
+    return redirect('/employees');
+  }
+
+  DeleteEmployee = async({ params }) =>
+  {
+    await fetch(`${this.URL}/api/employees/${params.employeeId}`,
+      {
+        method: 'DELETE'
+      }
+    );
+
+    return redirect('/employees');
   }
 };

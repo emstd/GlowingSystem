@@ -15,13 +15,15 @@ namespace GlowingSystem.Extensions
         /// <param name="services"></param>
         public static void ConfigureCors(this IServiceCollection services)
         {
-            services.AddCors(options =>
+            services.AddCors(o =>
             {
-                options.AddPolicy("GlowingSystemCorsPolicy", builder =>
+                o.AddPolicy("GlowingSystemCorsPolicy", p =>
                 {
-                    builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    p.WithOrigins("http://localhost:5173")
+                    .WithHeaders().AllowAnyHeader()
+                    .WithMethods().AllowAnyMethod()
+                    .AllowCredentials()
+                    .SetIsOriginAllowedToAllowWildcardSubdomains();
                 });
             });
         }

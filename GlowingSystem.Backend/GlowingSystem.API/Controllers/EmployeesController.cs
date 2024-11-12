@@ -40,7 +40,8 @@ namespace GlowingSystem.API.Controllers
             //ActionFilter
             var createdEmployeeGuid = await _service.CreateEmployeeAsync(employeeForCreateDto);
 
-            return CreatedAtRoute("EmployeeById", new { id = createdEmployeeGuid }, createdEmployeeGuid);
+            //return CreatedAtRoute("EmployeeById", new { id = createdEmployeeGuid }, createdEmployeeGuid);
+            return Ok(createdEmployeeGuid);
         }
 
         [HttpPut("{id:guid}")]

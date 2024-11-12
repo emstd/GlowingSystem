@@ -49,7 +49,7 @@ function MainPage() {
               Исполнители
             </MenuItem>
             <MenuItem onClick={() => navigate("/employees")}>
-              Работники
+              Сотрудники
             </MenuItem>
             <MenuItem onClick={() => navigate("/")}>
               Проекты

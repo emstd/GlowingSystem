@@ -14,7 +14,7 @@ function EmployeeUpdatePage(){
 
   return(
     <>
-      <Form method="POST" id="update-employee-form">
+      <Form method="POST">
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Фамилия:</Text>
@@ -56,14 +56,29 @@ function EmployeeUpdatePage(){
         <Box  width='60%'>
           <Divider mt='1vh'/>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
+            <Text>email:</Text>
+            <Input
+              width='50%'
+              type="text"
+              name="email"
+              defaultValue={employee.email}
+            />
+          </Box>
+        </Box>
+
+        <Box  width='60%'>
+          <Divider mt='1vh'/>
+          <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Менеджер:</Text>
             <Checkbox
               width='50%'
               type="checkbox"
-              name="isManager"
+              name="isManagerTrue"
               size='lg'
-              isChecked={employee.isManager ? true : undefined}
+              defaultChecked={employee.isManager}
+              value='true'
             />
+            <Input type="hidden" name="isManagerFalse" value="false" />
           </Box>
         </Box>
 

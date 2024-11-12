@@ -10,6 +10,7 @@ import MainPage from "./Pages/MainPage/MainPage";
 import ContractorsPage from "./Pages/ContractorsPage/ContractorsPage";
 import EmployeesPage from "./Pages/EmployeesPage/EmployeesPage";
 import EmployeeUpdatePage from "./Pages/EmployeesPage/Components/EmployeeUpdatePage"
+import EmployeeCreatePage from "./Pages/EmployeesPage/Components/EmployeeCreatePage";
 
 const API = new APIClient();
 
@@ -69,6 +70,15 @@ const router = createBrowserRouter([
         element: <EmployeeUpdatePage />,
         loader: API.GetEmployeeById,
         action: API.UpdateEmployee
+      },
+      {
+        path: "employees/create",
+        element: <EmployeeCreatePage />,
+        action: API.CreateEmployee
+      },
+      {
+        path: "employees/delete/:employeeId",
+        action: API.DeleteEmployee
       }
     ],
   },

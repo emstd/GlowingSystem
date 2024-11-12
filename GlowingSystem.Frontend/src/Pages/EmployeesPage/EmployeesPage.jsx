@@ -26,7 +26,7 @@ function EmployeesPage(){
       >
         <Link to='/'><Button><ChevronLeftIcon mt={'3px'} mr={'2px'}/>Назад</Button></Link>
         <Box>
-          <Link to={`/`}><Button><SmallAddIcon mt='0.5vh' />Доабвить сотрудника</Button></Link>
+          <Link to={`/employees/create`}><Button><SmallAddIcon mt='0.5vh' />Добавить сотрудника</Button></Link>
         </Box>
 
       </Box>
@@ -46,7 +46,21 @@ function EmployeesPage(){
                 >
                   <Button size='sm' type="submit" mt='1vh'><EditIcon /></Button>
                 </Form>
+                <Form
+                  method="post"
+                  action={`/employees/delete/${employee.id}`}
+                  onSubmit={(event) => {
+                    if (
+                        !confirm(
+                          "Please confirm you want to delete this record."
+                        )
+                    ) {
+                      event.preventDefault();
+                    }
+                    }}
+                  >
                   <Button size='sm' ml='2vh' mt='1vh' type="submit"><DeleteIcon color='red' /></Button>
+                </Form>
               </Flex>
           </Flex>
         </CardHeader>
