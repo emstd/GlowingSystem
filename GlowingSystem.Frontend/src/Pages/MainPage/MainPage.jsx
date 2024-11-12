@@ -51,7 +51,7 @@ function MainPage() {
             <MenuItem onClick={() => navigate("/employees")}>
               Сотрудники
             </MenuItem>
-            <MenuItem onClick={() => navigate("/")}>
+            <MenuItem onClick={() => navigate("/projects")}>
               Проекты
             </MenuItem>
           </MenuList>

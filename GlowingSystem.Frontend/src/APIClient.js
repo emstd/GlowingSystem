@@ -184,4 +184,13 @@ export class APIClient
 
     return redirect('/employees');
   }
+
+  //Projects
+  GetProjects = async () =>
+    {
+      const response = await fetch(`${this.URL}/api/projects`);
+      const jsonResponse = await response.json();
+
+      return jsonResponse;
+    };
 };

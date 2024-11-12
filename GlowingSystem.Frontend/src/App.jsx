@@ -11,6 +11,7 @@ import ContractorsPage from "./Pages/ContractorsPage/ContractorsPage";
 import EmployeesPage from "./Pages/EmployeesPage/EmployeesPage";
 import EmployeeUpdatePage from "./Pages/EmployeesPage/Components/EmployeeUpdatePage"
 import EmployeeCreatePage from "./Pages/EmployeesPage/Components/EmployeeCreatePage";
+import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 
 const API = new APIClient();
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
 
-      //CRUD customers
+      //customers
       {
         path: "customers",
         element: <CustomersPage />,
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
         action: API.UpdateCustomer
       },
 
-      //CRUD contractors
+      //contractors
       {
         path: "contractors",
         element: <ContractorsPage />,
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
         action: API.DeleteContractor
       },
 
-      //CRUD employees
+      //employees
       {
         path: "employees",
         element: <EmployeesPage />,
@@ -79,6 +80,13 @@ const router = createBrowserRouter([
       {
         path: "employees/delete/:employeeId",
         action: API.DeleteEmployee
+      },
+
+      //projects
+      {
+        path: "projects",
+        element: <ProjectsPage />,
+        loader: API.GetProjects
       }
     ],
   },

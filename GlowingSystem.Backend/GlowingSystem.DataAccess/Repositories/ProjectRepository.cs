@@ -58,6 +58,8 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             List<Project> projects = await _context.Projects.AsNoTracking()
                 .Include(p => p.Employees)
+                .Include(p => p.Contractor)
+                .Include(p => p.Customer)
                 .Select(p => _mapper.Map<ProjectEntity, Project>(p))
                 .ToListAsync();
 
