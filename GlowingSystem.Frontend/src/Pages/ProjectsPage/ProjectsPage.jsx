@@ -69,34 +69,7 @@ function ProjectsPage()
       <CardBody>
         <Stack divider={<StackDivider />} spacing='4'>
 
-          <Box>
-            <Heading size='xs' textTransform='uppercase'>
-              Заказчик
-            </Heading>
-            <Text pt='2' fontSize='sm'>
-              {project.customer.customerName}
-            </Text>
-          </Box>
-
-          <Box>
-            <Heading size='xs' textTransform='uppercase'>
-              Исполнитель
-            </Heading>
-            <Text pt='2' fontSize='sm'>
-              {project.contractor.contractorName}
-            </Text>
-          </Box>
-
-          <Box>
-            <Heading size='xs' textTransform='uppercase'>
-              Приоритет
-            </Heading>
-            <Text pt='2' fontSize='sm'>
-              {project.priority}
-            </Text>
-          </Box>
-
-          <Box>
+        <Box>
             <Heading size='xs' textTransform='uppercase'>
               Дата начала
             </Heading>
@@ -117,7 +90,42 @@ function ProjectsPage()
 
           <Box>
             <Heading size='xs' textTransform='uppercase'>
-              Разработчики проекта:
+              Приоритет
+            </Heading>
+            <Text pt='2' fontSize='sm'>
+              {project.priority}
+            </Text>
+          </Box>
+
+          <Box>
+            <Heading size='xs' textTransform='uppercase'>
+              Заказчик
+            </Heading>
+            <Text pt='2' fontSize='sm'>
+              {project.customer.customerName}
+            </Text>
+          </Box>
+
+          <Box>
+            <Heading size='xs' textTransform='uppercase'>
+              Исполнитель
+            </Heading>
+            <Text pt='2' fontSize='sm'>
+              {project.contractor.contractorName}
+            </Text>
+          </Box>
+
+          <Box>
+            <Heading size='xs' textTransform='uppercase'>
+              Руководитель проекта:
+            </Heading>
+              <Text pt='2' fontSize='sm'></Text>
+              <Text pt='2' fontSize='sm'>Руководитель</Text> 
+          </Box>
+
+          <Box>
+            <Heading size='xs' textTransform='uppercase'>
+              Разработчики проекта
             </Heading>
               {
                 project.employees.length ? 
