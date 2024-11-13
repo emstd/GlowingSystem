@@ -60,6 +60,7 @@ namespace GlowingSystem.DataAccess.Repositories
                 .Include(p => p.Employees)
                 .Include(p => p.Contractor)
                 .Include(p => p.Customer)
+                .Include(p => p.TeamLead)
                 .Select(p => _mapper.Map<ProjectEntity, Project>(p))
                 .ToListAsync();
 

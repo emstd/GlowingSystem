@@ -23,5 +23,7 @@ namespace GlowingSystem.DataAccess.Entities
         public int Priority { get; set; }
         public List<EmployeeProject>? EmployeeProject { get; set; }
         public List<EmployeeEntity> Employees { get; set; } = new();
+        public Guid? TeamLeadId { get; set; }
+        public EmployeeEntity? TeamLead { get; set; }
     }
 }

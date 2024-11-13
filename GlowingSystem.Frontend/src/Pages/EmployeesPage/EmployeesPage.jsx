@@ -38,7 +38,7 @@ function EmployeesPage(){
         >
           <CardHeader>
           <Flex justifyContent='space-between'>
-              <Heading size='md'>{employee.isManager ? <p>Manager</p> : <p>Employee</p>}</Heading>
+              <Heading size='md'>{employee.lastName} {employee.firstName} {employee.surname}</Heading>
               <Flex justifyContent='space-around'>
                 <Form
                   method="GET"
@@ -67,14 +67,6 @@ function EmployeesPage(){
 
         <CardBody>
           <Stack divider={<StackDivider />} spacing='4'>
-            <Box>
-              <Heading size='xs' textTransform='uppercase'>
-                Name
-              </Heading>
-              <Text pt='2' fontSize='sm'>
-                {employee.lastName} {employee.firstName} {employee.surname} 
-              </Text>
-            </Box>
             <Box>
               <Heading size='xs' textTransform='uppercase'>
                 Contacts

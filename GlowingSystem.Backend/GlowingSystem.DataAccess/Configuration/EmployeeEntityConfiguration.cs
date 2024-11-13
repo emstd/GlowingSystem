@@ -19,7 +19,6 @@ namespace GlowingSystem.DataAccess.Configuration
                     LastName = "Петров",
                     Surname = "Петрович",
                     Email = "petr@gmail.com",
-                    IsManager = true
                 },
                 new EmployeeEntity()
                 {
@@ -28,7 +27,6 @@ namespace GlowingSystem.DataAccess.Configuration
                     LastName = "Иванов",
                     Surname = "Иванович",
                     Email = "ivan@gmail.com",
-                    IsManager = true
                 },
                 new EmployeeEntity()
                 {
@@ -37,7 +35,6 @@ namespace GlowingSystem.DataAccess.Configuration
                     LastName = "Андреев",
                     Surname = "Андреевич",
                     Email = "andrey@gmail.com",
-                    IsManager = false
                 },
                 new EmployeeEntity()
                 {
@@ -46,7 +43,6 @@ namespace GlowingSystem.DataAccess.Configuration
                     LastName = "Алексеев",
                     Surname = "Алексеевич",
                     Email = "alex@gmail.com",
-                    IsManager = false
                 }
             );
         }

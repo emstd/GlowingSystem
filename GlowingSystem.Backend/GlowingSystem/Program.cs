@@ -1,3 +1,4 @@
+using GlowingSystem.Converters;
 using GlowingSystem.Extensions;
 using GlowingSystem.MappingProfiles;
 using System.Text.Json.Serialization;
@@ -22,6 +23,10 @@ namespace GlowingSystem
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new DateJsonConverter());
                 });
 
             builder.Services.AddAutoMapper(cfg =>

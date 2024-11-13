@@ -10,5 +10,6 @@
         public DateTime? EndDate { get; set; }
         public int Priority { get; set; }
         public List<EmployeeDto>? Employees { get; set; }
+        public EmployeeDto? TeamLead { get; set; }
     }
 }

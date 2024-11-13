@@ -65,21 +65,6 @@ function EmployeeCreatePage(){
           </Box>
         </Box>
 
-        <Box  width='60%'>
-          <Divider mt='1vh'/>
-          <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
-            <Text>Менеджер:</Text>
-            <Checkbox
-              width='50%'
-              type="checkbox"
-              name="isManagerTrue"
-              size='lg'
-              value='true'
-            />
-            <Input type="hidden" name="isManagerFalse" value="false" />
-          </Box>
-        </Box>
-
         <Box width='30%' display='flex' justifyContent='space-between' ml='20%' mt='10vh'>
           <Button bgColor='green' type="submit">Сохранить</Button>
           <Button bgColor='red'

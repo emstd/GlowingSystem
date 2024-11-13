@@ -24,6 +24,10 @@ namespace GlowingSystem.DataAccess.Configuration
                     EPBuilder => EPBuilder
                         .HasKey(ep => new {ep.EmployeeId, ep.ProjectId})
                 );
+            builder.HasOne(p => p.TeamLead)
+                .WithMany()
+                .HasForeignKey(p => p.TeamLeadId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasData
             (
                 new ProjectEntity()
@@ -35,6 +39,7 @@ namespace GlowingSystem.DataAccess.Configuration
                     StartDate = new DateTime(2024, 3, 23),
                     EndDate = new DateTime(2024, 5, 12),
                     Priority = 0,
+                    TeamLeadId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9")
                 },
                 new ProjectEntity()
                 {
@@ -45,6 +50,7 @@ namespace GlowingSystem.DataAccess.Configuration
                     StartDate = new DateTime(2024, 4, 20),
                     EndDate = new DateTime(2024, 9, 12),
                     Priority = 0,
+                    TeamLeadId = new Guid("ca7744f2-77f0-4cc6-982d-2bb904a43bf3")
                 },
                 new ProjectEntity()
                 {
@@ -55,6 +61,7 @@ namespace GlowingSystem.DataAccess.Configuration
                     StartDate = new DateTime(2024, 3, 23),
                     EndDate = null,
                     Priority = 1,
+                    TeamLeadId = new Guid("2d27d4d3-82d9-438f-bdbd-a863eb6e5815")
                 },
                 new ProjectEntity()
                 {

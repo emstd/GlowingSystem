@@ -127,16 +127,8 @@ export class APIClient
   UpdateEmployee = async({ params, request }) =>
   {
     const formData = await request.formData();
-    const isManagerTrue = formData.get('isManagerTrue');
-
-    let isManager = isManagerTrue === 'true';
 
     const updatedEmployee = Object.fromEntries(formData);
-
-    delete updatedEmployee.isManagerTrue;
-    delete updatedEmployee.isManagerFalse;
-
-    updatedEmployee.isManager = isManager;
 
     await fetch(`${this.URL}/api/employees/${params.employeeId}`,
       {
@@ -152,18 +144,10 @@ export class APIClient
   CreateEmployee = async({ request }) =>
   {
     const formData = await request.formData();
-
-    const isManagerTrue = formData.get('isManagerTrue');
-    let isManager = isManagerTrue === 'true';
     
     const newEmployee = Object.fromEntries(formData);
 
-    delete newEmployee.isManagerTrue;
-    delete newEmployee.isManagerFalse;
-
-    newEmployee.isManager = isManager;
-
-    const respone = await fetch(`${this.URL}/api/employees`,
+    await fetch(`${this.URL}/api/employees`,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -187,10 +171,35 @@ export class APIClient
 
   //Projects
   GetProjects = async () =>
-    {
-      const response = await fetch(`${this.URL}/api/projects`);
-      const jsonResponse = await response.json();
+  {
+    const response = await fetch(`${this.URL}/api/projects`);
+    const jsonResponse = await response.json();
 
-      return jsonResponse;
-    };
+    return jsonResponse;
+  };
+
+  CreateProjects = async ({ request }) =>
+  {
+    const formData = await request.formData();
+    const date = formData.get("date");
+
+    console.log(date);
+
+    return null;
+  }
+  
+  GetDataForProjectCreation = async() =>
+  {
+    const employeesJSON = await this.GetEmployees();
+    const contractorsJSON = await this.GetContractors();
+    const customersJSON = await this.GetCustomers();
+
+    const DataForProject = {
+      employees: employeesJSON,
+      contractors: contractorsJSON,
+      customers: customersJSON
+    }
+
+    return DataForProject;
+  }
 };

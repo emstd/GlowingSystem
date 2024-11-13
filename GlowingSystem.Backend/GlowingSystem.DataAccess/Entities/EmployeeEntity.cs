@@ -23,7 +23,6 @@ namespace GlowingSystem.DataAccess.Entities
         [MaxLength(50, ErrorMessage = "Maximum length for the Email is 50 characters.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; } = string.Empty;
-        public required bool IsManager { get; set; }
         public List<EmployeeProject>? EmployeeProject { get; set; }
         public List<ProjectEntity>? Projects { get; set; }
     }

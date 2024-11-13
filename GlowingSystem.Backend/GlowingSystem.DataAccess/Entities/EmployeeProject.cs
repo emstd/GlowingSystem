@@ -6,6 +6,5 @@
         public ProjectEntity Project { get; set; } = null!;
         public Guid EmployeeId { get; set; }
         public EmployeeEntity Employee { get; set; } = null!;
-
     }
 }

@@ -4,6 +4,7 @@ using GlowingSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlowingSystem.Migrations
 {
     [DbContext(typeof(GlowingSystemDbContext))]
-    partial class GlowingSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241113030038_RemoveIsManagerProperty")]
+    partial class RemoveIsManagerProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,8 +257,7 @@ namespace GlowingSystem.Migrations
                             EndDate = new DateTime(2024, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = 0,
                             ProjectName = "miniature-lamp",
-                            StartDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TeamLeadId = new Guid("36abacc7-45d1-48b5-8b70-30892e24c3d9")
+                            StartDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -265,8 +267,7 @@ namespace GlowingSystem.Migrations
                             EndDate = new DateTime(2024, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = 0,
                             ProjectName = "congenial-waffle",
-                            StartDate = new DateTime(2024, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TeamLeadId = new Guid("ca7744f2-77f0-4cc6-982d-2bb904a43bf3")
+                            StartDate = new DateTime(2024, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -275,8 +276,7 @@ namespace GlowingSystem.Migrations
                             CustomerId = new Guid("a3f97ff5-f4e9-48a1-a7eb-d84f0c48c460"),
                             Priority = 1,
                             ProjectName = "congenial-octo-memory",
-                            StartDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TeamLeadId = new Guid("2d27d4d3-82d9-438f-bdbd-a863eb6e5815")
+                            StartDate = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {

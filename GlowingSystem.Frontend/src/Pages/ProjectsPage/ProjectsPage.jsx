@@ -16,7 +16,7 @@ import { EditIcon, DeleteIcon, ChevronLeftIcon, SmallAddIcon  } from '@chakra-ui
 function ProjectsPage()
 {
   const projects = useLoaderData();
-  console.log(projects)
+  // console.log(projects)
   return(
     <Box>
     <Box
@@ -27,7 +27,7 @@ function ProjectsPage()
     >
       <Link to='/'><Button><ChevronLeftIcon mt={'3px'} mr={'2px'}/>Назад</Button></Link>
       <Box>
-        <Link to={`/`}><Button><SmallAddIcon mt='0.5vh' />Добавить проект</Button></Link>
+        <Link to={`create`}><Button><SmallAddIcon mt='0.5vh' />Добавить проект</Button></Link>
       </Box>
 
     </Box>
@@ -119,8 +119,10 @@ function ProjectsPage()
             <Heading size='xs' textTransform='uppercase'>
               Руководитель проекта:
             </Heading>
-              <Text pt='2' fontSize='sm'></Text>
-              <Text pt='2' fontSize='sm'>Руководитель</Text> 
+              {project.teamLead ?
+                <Text pt='2' fontSize='sm'>{project.teamLead.firstName} {project.teamLead.surname} {project.teamLead.lastName}</Text>
+              : <Text pt='2' fontSize='sm'>Руководитель не назначен</Text>
+              }
           </Box>
 
           <Box>

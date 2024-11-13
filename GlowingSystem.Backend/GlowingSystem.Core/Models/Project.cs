@@ -13,5 +13,7 @@
         public int Priority { get; set; }
         public List<Employee>? Employees { get; set; }
         public List<Guid>? EmployeesIds { get; set; }
+        public Guid? TeamLeadId { get; set; }
+        public Employee? TeamLead { get; set; }
     }
 }

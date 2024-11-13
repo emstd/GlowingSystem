@@ -12,6 +12,7 @@ import EmployeesPage from "./Pages/EmployeesPage/EmployeesPage";
 import EmployeeUpdatePage from "./Pages/EmployeesPage/Components/EmployeeUpdatePage"
 import EmployeeCreatePage from "./Pages/EmployeesPage/Components/EmployeeCreatePage";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
+import CreateProjectPage from "./Pages/ProjectsPage/Components/CreateProjectPage";
 
 const API = new APIClient();
 
@@ -87,6 +88,12 @@ const router = createBrowserRouter([
         path: "projects",
         element: <ProjectsPage />,
         loader: API.GetProjects
+      },
+      {
+        path: "projects/create",
+        element: <CreateProjectPage />,
+        loader: API.GetDataForProjectCreation,
+        action: API.CreateProjects
       }
     ],
   },

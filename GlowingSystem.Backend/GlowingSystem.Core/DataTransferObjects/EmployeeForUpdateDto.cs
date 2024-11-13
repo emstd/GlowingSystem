@@ -6,6 +6,5 @@
         public required string LastName { get; set; }
         public required string Surname { get; set; }
         public required string Email { get; set; }
-        public required bool IsManager { get; set; }
     }
 }
