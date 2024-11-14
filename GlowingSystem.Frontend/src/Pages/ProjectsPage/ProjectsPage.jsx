@@ -47,9 +47,9 @@ function ProjectsPage()
               > */}
                 <Button size='sm' type="submit" mt='1vh'><EditIcon /></Button>
               {/* </Form> */}
-              {/* <Form
+              <Form
                 method="post"
-                action={`/employees/delete/${employee.id}`}
+                action={`delete/${project.id}`}
                 onSubmit={(event) => {
                   if (
                       !confirm(
@@ -59,9 +59,9 @@ function ProjectsPage()
                     event.preventDefault();
                   }
                   }}
-                > */}
+                >
                 <Button size='sm' ml='2vh' mt='1vh' type="submit"><DeleteIcon color='red' /></Button>
-              {/* </Form> */}
+              </Form>
             </Flex>
         </Flex>
       </CardHeader>

@@ -10,6 +10,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   useColorMode,
+  Select as ChakraSelect
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Form, useNavigate, useLoaderData } from "react-router-dom";
@@ -19,7 +20,12 @@ import customStyles from "../CustomStyles/CustomStyles"
 function CreateProjectPage(){
   const navigate = useNavigate();
   const data = useLoaderData();
-  console.log(data);
+
+  const [selectedEmployeeIds, setSelectedEmployeeIds] = useState([]);
+  const handleSelectChange = (selectedOptions) => {
+    const ids = selectedOptions ? selectedOptions.map(option => option.value) : [];
+    setSelectedEmployeeIds(ids);
+  };
 
   // const [selectedEmployees, setSelectedEmployees] = useState([]);
   // const handleEmployeesSelect = (selectedOptions) =>{
@@ -27,7 +33,6 @@ function CreateProjectPage(){
   // }
 
   const { colorMode } = useColorMode();
-
   return(
     <>
     {/* <Form method='POST' action={`/projects/create`}>
@@ -97,36 +102,56 @@ function CreateProjectPage(){
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Заказчик:</Text>
-            <Input
-              width='50%'
-              type="text"
-              name="customerId"
-              placeholder="Заказчик"
-            />
+            <Box display='flex' width='50%' justifyContent='space-between'>
+              <ChakraSelect
+                type="text"
+                name="customerId"
+              >
+                {
+                  data.customers.map(customer => 
+                  (
+                    <option key={customer.id} value={customer.id}>{customer.customerName}</option>
+                  ))
+                }
+              </ChakraSelect>
+            </Box>
           </Box>
         </Box>
 
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Исполнитель:</Text>
-            <Input
-              width='50%'
-              type="text"
-              name="contractorId"
-              placeholder="Исполнитель"
-            />
+            <Box display='flex' width='50%' justifyContent='space-between'>
+              <ChakraSelect
+                type="text"
+                name="contractorId"
+              >
+                {
+                  data.contractors.map(contractor => 
+                  (
+                    <option key={contractor.id} value={contractor.id}>{contractor.contractorName}</option>
+                  ))
+                }
+              </ChakraSelect>
+            </Box>
           </Box>
         </Box>
 
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Руководитель проекта:</Text>
-            <Input
-              width='50%'
-              type="text"
-              name="teamLeadId"
-              placeholder="Исполнитель"
-            />
+            <Box width='50%'>
+              <Select
+                name="teamLeadId"
+                styles={customStyles(colorMode)}
+                menuPlacement="auto"
+                options={data.employees.map(employee => ({
+                  value: employee.id,
+                  label: employee.lastName
+                }))
+                }
+              />
+            </Box>
           </Box>
         </Box>
 
@@ -135,10 +160,12 @@ function CreateProjectPage(){
             <Text>Разработчики:</Text>
             <Box width='50%'>
               <Select
-                name="employeesIdsSelect"
+                name="employeesIds"
                 styles={customStyles(colorMode)}
                 isMulti
                 menuPlacement="auto"
+                delimiter="&"
+                onChange={handleSelectChange}
                 options={data.employees.map(employee => ({
                   value: employee.id,
                   label: employee.lastName

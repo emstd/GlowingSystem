@@ -24,13 +24,17 @@
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isFocused 
-        ? (colorMode === "dark" ? "#4A5568" : "#E2E8F0")  // цвет при наведении
-        : (colorMode === "dark" ? "#2D3748" : "#fff"),    // базовый цвет
-      color: colorMode === "dark" ? "#E2E8F0" : "#2D3748", // цвет текста
+        ? (colorMode === "dark" ? "#4A5568" : "#E2E8F0")
+        : (colorMode === "dark" ? "#2D3748" : "#fff"),    
+      color: colorMode === "dark" ? "#E2E8F0" : "#2D3748",
     }),
     input: (provided) => ({
       ...provided,
-      color: colorMode === "dark" ? "#E2E8F0" : "#2D3748", // цвет текста при вводе
+      color: colorMode === "dark" ? "#E2E8F0" : "#2D3748",
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: colorMode === "dark" ? "#E2E8F0" : "#2D3748",
     }),
   });
 

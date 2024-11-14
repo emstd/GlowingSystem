@@ -94,6 +94,10 @@ const router = createBrowserRouter([
         element: <CreateProjectPage />,
         loader: API.GetDataForProjectCreation,
         action: API.CreateProjects
+      },
+      {
+        path: "projects/delete/:projectId",
+        action: API.DeleteProject
       }
     ],
   },

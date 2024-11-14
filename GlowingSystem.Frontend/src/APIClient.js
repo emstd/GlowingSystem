@@ -181,12 +181,32 @@ export class APIClient
   CreateProjects = async ({ request }) =>
   {
     const formData = await request.formData();
-    const date = formData.get("date");
+    const newProject = Object.fromEntries(formData);
+    if (newProject.employeesIds) {
+      newProject.employeesIds = newProject.employeesIds.split('&');
+    }
+    
+    await fetch(`${this.URL}/api/projects`,
+      {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProject)
+      }
+    )
 
-    console.log(date);
-
-    return null;
+    return redirect("/projects");
   }
+
+  DeleteProject = async({ params }) =>
+    {
+      await fetch(`${this.URL}/api/projects/${params.projectId}`,
+        {
+          method: 'DELETE'
+        }
+      );
+  
+      return redirect('/projects');
+    }
   
   GetDataForProjectCreation = async() =>
   {
