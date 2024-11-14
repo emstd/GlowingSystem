@@ -41,12 +41,12 @@ function ProjectsPage()
         <Flex justifyContent='space-between'>
             <Heading size='md'><p>{project.projectName}</p></Heading>
             <Flex justifyContent='space-around'>
-              {/* <Form
+              <Form
                 method="GET"
-                action={`/employees/${employee.id}/update`}
-              > */}
+                action={`/projects/${project.id}/update`}
+              >
                 <Button size='sm' type="submit" mt='1vh'><EditIcon /></Button>
-              {/* </Form> */}
+              </Form>
               <Form
                 method="post"
                 action={`delete/${project.id}`}

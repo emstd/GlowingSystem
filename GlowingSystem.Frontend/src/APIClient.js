@@ -178,6 +178,14 @@ export class APIClient
     return jsonResponse;
   };
 
+  GetProjectById = async({ params }) =>
+  {
+    const response = await fetch(`${this.URL}/api/projects/${params.projectId}`);
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+  }
+
   CreateProjects = async ({ request }) =>
   {
     const formData = await request.formData();
@@ -185,7 +193,12 @@ export class APIClient
     if (newProject.employeesIds) {
       newProject.employeesIds = newProject.employeesIds.split('&');
     }
-    
+
+    if (newProject.endDate === '')
+      newProject.endDate = null;
+    if (newProject.employeesIds === '')
+      newProject.employeesIds = null;
+
     await fetch(`${this.URL}/api/projects`,
       {
         method: 'POST',
@@ -195,6 +208,12 @@ export class APIClient
     )
 
     return redirect("/projects");
+  }
+
+  UpdateProject = async ({ params, request }) =>
+  {
+
+    return null;
   }
 
   DeleteProject = async({ params }) =>
@@ -221,5 +240,22 @@ export class APIClient
     }
 
     return DataForProject;
+  }
+
+  GetDataForProjectUpdate = async({ params }) =>
+  {
+    const employeesJSON = await this.GetEmployees();
+    const contractorsJSON = await this.GetContractors();
+    const customersJSON = await this.GetCustomers();
+    const projectJson = await this.GetProjectById({params});
+
+    const DataForUpdateProject = {
+      employees: employeesJSON,
+      contractors: contractorsJSON,
+      customers: customersJSON,
+      project: projectJson
+    }
+    
+    return DataForUpdateProject;
   }
 };

@@ -16,11 +16,18 @@ import { Form, useNavigate, useLoaderData } from "react-router-dom";
 import Select from 'react-select'
 import customStyles from "../CustomStyles/CustomStyles"
 
-function CreateProjectPage(){
-  const navigate = useNavigate();
+function ProjectUpdatePage(){
   const data = useLoaderData();
-
+  const navigate = useNavigate();
   const { colorMode } = useColorMode();
+
+  const formatDateForInput = (dateString) => {
+    if (dateString === null)
+      return "";
+    const [day, month, year] = dateString.split('.');
+    return `${year}-${month}-${day}`;
+  };
+
   return(
     <>
       <Form method="POST">
@@ -33,6 +40,7 @@ function CreateProjectPage(){
               name="projectName"
               placeholder="Название проекта"
               required
+              defaultValue={data.project.projectName}
             />
           </Box>
         </Box>
@@ -46,6 +54,7 @@ function CreateProjectPage(){
               width='50%'
               type='date'
               name="startDate"
+              defaultValue={formatDateForInput(data.project.startDate)}
             />
           </Box>
         </Box>
@@ -58,6 +67,7 @@ function CreateProjectPage(){
               width='50%'
               type='date'
               name="endDate"
+              defaultValue={formatDateForInput(data.project.endDate)}
             />
           </Box>
         </Box>
@@ -67,7 +77,7 @@ function CreateProjectPage(){
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
             <Text>Приоритет проекта:</Text>
             <NumberInput
-              defaultValue={1}
+              defaultValue={data.project.priority}
               min={1}
               max={5}
               step={1}
@@ -92,6 +102,7 @@ function CreateProjectPage(){
               <ChakraSelect
                 type="text"
                 name="customerId"
+                defaultValue={data.project.customer.id}
               >
                 {
                   data.customers.map(customer => 
@@ -111,6 +122,7 @@ function CreateProjectPage(){
               <ChakraSelect
                 type="text"
                 name="contractorId"
+                defaultValue={data.project.contractor.id}
               >
                 {
                   data.contractors.map(contractor => 
@@ -125,7 +137,7 @@ function CreateProjectPage(){
 
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
-            <Text>Руководитель проекта:</Text>
+            <Text>Руководитель проекта:</Text> {console.log(data)}
             <Box width='50%'>
               <Select
                 required
@@ -142,25 +154,6 @@ function CreateProjectPage(){
           </Box>
         </Box>
 
-        <Box  width='60%'>
-          <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
-            <Text>Разработчики:</Text>
-            <Box width='50%'>
-              <Select
-                name="employeesIds"
-                styles={customStyles(colorMode)}
-                isMulti
-                menuPlacement="auto"
-                delimiter="&"
-                options={data.employees.map(employee => ({
-                  value: employee.id,
-                  label: employee.lastName
-                }))
-                }
-              />
-            </Box>
-          </Box>
-        </Box>
 
         <Box width='30%' display='flex' justifyContent='space-between' ml='20%' mt='10vh'>
           <Button bgColor='green' type="submit">Сохранить</Button>
@@ -176,4 +169,4 @@ function CreateProjectPage(){
   );
 }
 
-export default CreateProjectPage;
+export default ProjectUpdatePage;

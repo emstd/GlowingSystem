@@ -44,6 +44,9 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var projectEntity = await _context.Projects.AsNoTracking()
                 .Include(p => p.Employees)
+                .Include(p => p.Contractor)
+                .Include(p=>p.Customer)
+                .Include(p=>p.TeamLead)
                 .FirstOrDefaultAsync(p => p.Id.Equals(id));
 
             if (projectEntity == null)

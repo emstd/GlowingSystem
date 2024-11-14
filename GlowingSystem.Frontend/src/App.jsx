@@ -13,6 +13,7 @@ import EmployeeUpdatePage from "./Pages/EmployeesPage/Components/EmployeeUpdateP
 import EmployeeCreatePage from "./Pages/EmployeesPage/Components/EmployeeCreatePage";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import CreateProjectPage from "./Pages/ProjectsPage/Components/CreateProjectPage";
+import ProjectUpdatePage from "./Pages/ProjectsPage/Components/ProjectUpdatePage";
 
 const API = new APIClient();
 
@@ -98,6 +99,12 @@ const router = createBrowserRouter([
       {
         path: "projects/delete/:projectId",
         action: API.DeleteProject
+      },
+      {
+        path: "projects/:projectId/update",
+        element: <ProjectUpdatePage />,
+        action: API.UpdateProject,
+        loader: API.GetDataForProjectUpdate
       }
     ],
   },
