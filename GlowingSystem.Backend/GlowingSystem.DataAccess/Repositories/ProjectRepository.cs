@@ -72,7 +72,9 @@ namespace GlowingSystem.DataAccess.Repositories
 
         public async Task UpdateProjectAsync(Project project)
         {
-            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id.Equals(project.Id));
+            var projectEntity = await _context.Projects
+                .Include(p => p.EmployeeProject)
+                .FirstOrDefaultAsync(p => p.Id.Equals(project.Id));
 
             if (projectEntity == null)
                 throw new Exception();
@@ -81,8 +83,22 @@ namespace GlowingSystem.DataAccess.Repositories
 
             if (project.EmployeesIds != null)
             {
-                var employees = await _context.Employees.Where(e => project.EmployeesIds.Contains(e.Id)).ToListAsync();
-                projectEntity.Employees.AddRange(employees);
+                var currentEmployeesIds = projectEntity.EmployeeProject?
+                    .Select(ep => ep.EmployeeId).ToList() ?? new List<Guid>();
+
+                if (!currentEmployeesIds.SequenceEqual(project.EmployeesIds))
+                {
+                    if (projectEntity.EmployeeProject != null)
+                        _context.RemoveRange(projectEntity.EmployeeProject);
+
+                    var employeeProject = project.EmployeesIds.Select(emploeyyId => new EmployeeProject()
+                    {
+                        ProjectId = projectEntity.Id,
+                        EmployeeId = emploeyyId,
+                    }).ToList();
+
+                    projectEntity.EmployeeProject = employeeProject;
+                }
             }
 
             await _context.SaveChangesAsync();

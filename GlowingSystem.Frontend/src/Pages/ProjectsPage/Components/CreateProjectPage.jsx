@@ -134,7 +134,7 @@ function CreateProjectPage(){
                 menuPlacement="auto"
                 options={data.employees.map(employee => ({
                   value: employee.id,
-                  label: employee.lastName
+                  label: `${employee.lastName} ${employee.firstName}`
                 }))
                 }
               />
@@ -154,7 +154,7 @@ function CreateProjectPage(){
                 delimiter="&"
                 options={data.employees.map(employee => ({
                   value: employee.id,
-                  label: employee.lastName
+                  label: `${employee.lastName} ${employee.firstName}`
                 }))
                 }
               />

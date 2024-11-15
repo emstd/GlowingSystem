@@ -137,16 +137,20 @@ function ProjectUpdatePage(){
 
         <Box  width='60%'>
           <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
-            <Text>Руководитель проекта:</Text> {console.log(data)}
+            <Text>Руководитель проекта:</Text>
             <Box width='50%'>
               <Select
                 required
                 name="teamLeadId"
                 styles={customStyles(colorMode)}
                 menuPlacement="auto"
+                defaultValue={data.project.teamLead && {
+                  value: data.project.teamLead.id,
+                  label: `${data.project.teamLead.lastName} ${data.project.teamLead.firstName}`
+                }}
                 options={data.employees.map(employee => ({
                   value: employee.id,
-                  label: employee.lastName
+                  label: `${employee.lastName} ${employee.firstName}`
                 }))
                 }
               />
@@ -154,6 +158,31 @@ function ProjectUpdatePage(){
           </Box>
         </Box>
 
+        <Box  width='60%'>
+          <Box display='flex' justifyContent='space-between' mt='3vh' alignItems='center'>
+            <Text>Разработчики:</Text>
+            <Box width='50%'>
+              <Select
+                name="employeesIds"
+                styles={customStyles(colorMode)}
+                isMulti
+                menuPlacement="auto"
+                delimiter="&"
+                defaultValue={data.project.employees.map(employee => ({
+                  value: employee.id,
+                  label: `${employee.lastName} ${employee.firstName}`
+                }))
+
+                }
+                options={data.employees.map(employee => ({
+                  value: employee.id,
+                  label: `${employee.lastName} ${employee.firstName}`
+                }))
+                }
+              />
+            </Box>
+          </Box>
+        </Box>
 
         <Box width='30%' display='flex' justifyContent='space-between' ml='20%' mt='10vh'>
           <Button bgColor='green' type="submit">Сохранить</Button>

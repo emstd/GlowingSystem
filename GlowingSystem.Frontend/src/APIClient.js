@@ -212,8 +212,26 @@ export class APIClient
 
   UpdateProject = async ({ params, request }) =>
   {
+    const formData = await request.formData();
+    const updatedProject = Object.fromEntries(formData);
 
-    return null;
+    if (updatedProject.employeesIds) {
+      updatedProject.employeesIds = updatedProject.employeesIds.split('&');
+    }
+
+    if (updatedProject.endDate === '')
+      updatedProject.endDate = null;
+    if (updatedProject.employeesIds === '')
+      updatedProject.employeesIds = null;
+
+    await fetch(`${this.URL}/api/projects/${params.projectId}`,
+      {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedProject)
+      })
+    
+    return redirect("/projects");
   }
 
   DeleteProject = async({ params }) =>
