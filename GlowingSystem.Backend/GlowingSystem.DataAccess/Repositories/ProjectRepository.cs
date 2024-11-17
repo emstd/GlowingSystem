@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GlowingSystem.Core.ErrorModels.Exceptions;
 using GlowingSystem.Core.Interfaces.Repositories;
 using GlowingSystem.Core.Models;
 using GlowingSystem.DataAccess.Entities;
@@ -35,7 +36,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var projectEntity = await _context.Projects.FindAsync(id);
             if (projectEntity == null)
-                throw new Exception();
+                throw new ProjectNotFoundException(id);
 
             await _context.Projects.Where(p => p.Id.Equals(id)).ExecuteDeleteAsync();
         }
@@ -50,7 +51,7 @@ namespace GlowingSystem.DataAccess.Repositories
                 .FirstOrDefaultAsync(p => p.Id.Equals(id));
 
             if (projectEntity == null)
-                throw new Exception();
+                throw new ProjectNotFoundException(id);
 
             var project = _mapper.Map<ProjectEntity, Project>(projectEntity);
 
@@ -77,7 +78,7 @@ namespace GlowingSystem.DataAccess.Repositories
                 .FirstOrDefaultAsync(p => p.Id.Equals(project.Id));
 
             if (projectEntity == null)
-                throw new Exception();
+                throw new ProjectNotFoundException(project.Id);
 
             _mapper.Map(project, projectEntity);
 

@@ -1,6 +1,9 @@
+using GlowingSystem.API.ActionFilters;
 using GlowingSystem.Converters;
 using GlowingSystem.Extensions;
 using GlowingSystem.MappingProfiles;
+using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Text.Json.Serialization;
 
 namespace GlowingSystem
@@ -13,10 +16,23 @@ namespace GlowingSystem
 
             // Add services to the container.
 
+            Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(builder.Configuration)
+                    .CreateLogger();
+
+            builder.Services.AddSerilog();
+
             builder.Services.ConfigureCors();
             builder.Services.ConfigureSqlContext(builder.Configuration);
             builder.Services.AddServices();
             builder.Services.AddRepositories();
+
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            builder.Services.AddScoped<ValidationFilterAttribute>();
 
             builder.Services.AddControllers()
                 .AddApplicationPart(typeof(API.AssemblyReference).Assembly)
@@ -41,11 +57,13 @@ namespace GlowingSystem
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            var logger = app.Services.GetRequiredService<ILogger<Program>>();
+            app.ConfigureExceptionHandler(logger);
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();

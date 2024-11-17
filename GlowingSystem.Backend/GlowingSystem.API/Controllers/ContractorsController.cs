@@ -1,6 +1,8 @@
-﻿using GlowingSystem.Core.DataTransferObjects;
+﻿using GlowingSystem.API.ActionFilters;
+using GlowingSystem.Core.DataTransferObjects;
 using GlowingSystem.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace GlowingSystem.API.Controllers
 {
@@ -34,14 +36,16 @@ namespace GlowingSystem.API.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateContractor([FromBody] ContractorForCreateDto contractorForCreateDto)
         {
             var createdContractorGuid = await _service.CreateContractorAsync(contractorForCreateDto);
 
-            return Ok(createdContractorGuid);
+            return CreatedAtRoute("ContractorById", new { id = createdContractorGuid }, createdContractorGuid);
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateContractor(Guid id, [FromBody] ContractorForUpdateDto contractorForUpdateDto)
         {
             await _service.UpdateContractorAsync(id, contractorForUpdateDto);

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using GlowingSystem.Core.ErrorModels.Exceptions;
 using GlowingSystem.Core.Interfaces.Repositories;
 using GlowingSystem.Core.Models;
 using GlowingSystem.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Contracts;
 
 namespace GlowingSystem.DataAccess.Repositories
 {
@@ -30,7 +30,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var customerEntity = await _context.Customers.FirstOrDefaultAsync(c => c.Id.Equals(id));
             if (customerEntity == null)
-                throw new Exception();
+                throw new CustomerNotFoundException(id);
 
             await _context.Customers.Where(c => c.Id.Equals(id)).ExecuteDeleteAsync();
         }
@@ -39,7 +39,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var customerEntity = await _context.Customers.FirstOrDefaultAsync(c => c.Id.Equals(id));
             if (customerEntity == null)
-                throw new Exception();
+                throw new CustomerNotFoundException(id);
 
             var customer = _mapper.Map<CustomerEntity, Customer>(customerEntity);
             return customer;
@@ -58,7 +58,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var customerEntity = await _context.Customers.FirstOrDefaultAsync(c => c.Id.Equals(customer.Id));
             if (customerEntity == null)
-                throw new Exception();
+                throw new CustomerNotFoundException(customer.Id);
 
             _mapper.Map(customer, customerEntity);
             await _context.SaveChangesAsync();

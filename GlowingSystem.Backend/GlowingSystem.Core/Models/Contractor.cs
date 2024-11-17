@@ -1,4 +1,6 @@
-﻿namespace GlowingSystem.Core.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GlowingSystem.Core.Models
 {
     public class Contractor
     {

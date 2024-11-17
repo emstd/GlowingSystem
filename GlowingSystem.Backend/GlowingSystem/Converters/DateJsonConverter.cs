@@ -6,7 +6,7 @@ namespace GlowingSystem.Converters
     public class DateJsonConverter : JsonConverter<DateTime>
     {
         private const string DateFormatOutput = "dd.MM.yyyy";
-        private const string DateFormatInput = "yyyy-mm-dd";
+        private const string DateFormatInput = "yyyy-MM-dd";
 
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

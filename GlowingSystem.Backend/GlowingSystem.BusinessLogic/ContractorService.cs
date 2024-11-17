@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GlowingSystem.Core.DataTransferObjects;
+using GlowingSystem.Core.ErrorModels.Exceptions;
 using GlowingSystem.Core.Interfaces.Repositories;
 using GlowingSystem.Core.Interfaces.Services;
 using GlowingSystem.Core.Models;

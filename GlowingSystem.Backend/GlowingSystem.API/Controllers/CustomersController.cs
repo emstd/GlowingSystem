@@ -1,4 +1,5 @@
-﻿using GlowingSystem.Core.DataTransferObjects;
+﻿using GlowingSystem.API.ActionFilters;
+using GlowingSystem.Core.DataTransferObjects;
 using GlowingSystem.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,7 @@ namespace GlowingSystem.API.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerForCreateDto customerForCreateDto)
         {
             var createdCustomerGuid = await _service.CreateCustomerAsync(customerForCreateDto);
@@ -42,6 +44,7 @@ namespace GlowingSystem.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCustomer(Guid id, [FromBody] CustomerForUpdateDto customerForUpdateDto)
         {
             await _service.UpdateCustomerAsync(id, customerForUpdateDto);

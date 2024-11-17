@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GlowingSystem.Core.ErrorModels.Exceptions;
 using GlowingSystem.Core.Interfaces.Repositories;
 using GlowingSystem.Core.Models;
 using GlowingSystem.DataAccess.Entities;
@@ -29,7 +30,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var contractorEntity = await _context.Contractors.FirstOrDefaultAsync(c => c.Id.Equals(id));
             if (contractorEntity == null)
-                throw new Exception();
+                throw new ContractorNotFoundException(id);
 
             await _context.Contractors.Where(c => c.Id.Equals(id)).ExecuteDeleteAsync();
         }
@@ -38,7 +39,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var contractorEntity = await _context.Contractors.FirstOrDefaultAsync(c => c.Id.Equals(id));
             if (contractorEntity == null)
-                throw new Exception();
+                throw new ContractorNotFoundException(id);
 
             var contractor = _mapper.Map<ContractorEntity, Contractor>(contractorEntity);
             return contractor;
@@ -57,7 +58,7 @@ namespace GlowingSystem.DataAccess.Repositories
         {
             var contractorEntity = await _context.Contractors.FirstOrDefaultAsync(c => c.Id.Equals(contractor.Id));
             if (contractorEntity == null)
-                throw new Exception();
+                throw new ContractorNotFoundException(contractor.Id);
 
             _mapper.Map(contractor, contractorEntity);
             await _context.SaveChangesAsync();

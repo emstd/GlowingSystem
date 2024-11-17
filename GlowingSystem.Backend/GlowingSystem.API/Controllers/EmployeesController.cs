@@ -1,4 +1,5 @@
-﻿using GlowingSystem.Core.DataTransferObjects;
+﻿using GlowingSystem.API.ActionFilters;
+using GlowingSystem.Core.DataTransferObjects;
 using GlowingSystem.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,7 @@ namespace GlowingSystem.API.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateEmployee([FromBody] EmployeeForCreateDto employeeForCreateDto)
         {
             //ActionFilter
@@ -45,6 +47,7 @@ namespace GlowingSystem.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateEmployee(Guid id, [FromBody] EmployeeForUpdateDto employeeForUpdateDto)
         {
             //ActionFilter

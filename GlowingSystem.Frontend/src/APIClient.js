@@ -19,13 +19,18 @@ export class APIClient
   {
     const formData = await request.formData();
     const newCustomer = formData.get("NewCustomer");
-    await fetch(`${this.URL}/api/customers`,
+    const response = await fetch(`${this.URL}/api/customers`,
       {
         method: 'POST',
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({customerName: newCustomer})
       }
     )
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
 
     return redirect('/customers');
   }
@@ -34,13 +39,18 @@ export class APIClient
   {
     const formData = await request.formData();
     const newCustomerName = formData.get("CustomerName");
-    await fetch(`${this.URL}/api/customers/${params.customerId}`,
+    const response = await fetch(`${this.URL}/api/customers/${params.customerId}`,
       {
         method: 'PUT',
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({customerName: newCustomerName})
       }
     )
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
 
     return redirect('/customers');
   }
@@ -70,13 +80,18 @@ export class APIClient
   {
     const formData = await request.formData();
     const newContractor = formData.get("NewContractor");
-    await fetch(`${this.URL}/api/contractors`,
+    const response = await fetch(`${this.URL}/api/contractors`,
       {
         method: 'POST',
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({contractorName: newContractor})
       }
     )
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
     
     return redirect('/contractors');
   }
@@ -85,13 +100,18 @@ export class APIClient
   {
     const formData = await request.formData();
     const newContractorName = formData.get("ContractorName");
-    await fetch(`${this.URL}/api/contractors/${params.contractorId}`,
+    const response = await fetch(`${this.URL}/api/contractors/${params.contractorId}`,
       {
         method: 'PUT',
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({contractorName: newContractorName})
       }
     )
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
     
     return redirect('/contractors');
   }
@@ -130,13 +150,18 @@ export class APIClient
 
     const updatedEmployee = Object.fromEntries(formData);
 
-    await fetch(`${this.URL}/api/employees/${params.employeeId}`,
+    const response = await fetch(`${this.URL}/api/employees/${params.employeeId}`,
       {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedEmployee)
       }
     );
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
 
     return redirect('/employees');
   }
@@ -147,13 +172,18 @@ export class APIClient
     
     const newEmployee = Object.fromEntries(formData);
 
-    await fetch(`${this.URL}/api/employees`,
+    const response = await fetch(`${this.URL}/api/employees`,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newEmployee)
       }
     )
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
 
     return redirect('/employees');
   }
@@ -199,13 +229,18 @@ export class APIClient
     if (newProject.employeesIds === '')
       newProject.employeesIds = null;
 
-    await fetch(`${this.URL}/api/projects`,
+    const response = await fetch(`${this.URL}/api/projects`,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject)
       }
     )
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
 
     return redirect("/projects");
   }
@@ -224,12 +259,17 @@ export class APIClient
     if (updatedProject.employeesIds === '')
       updatedProject.employeesIds = null;
 
-    await fetch(`${this.URL}/api/projects/${params.projectId}`,
+    const response = await fetch(`${this.URL}/api/projects/${params.projectId}`,
       {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedProject)
       })
+    
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
     
     return redirect("/projects");
   }
