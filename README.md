@@ -5,6 +5,7 @@ From GlowingSystem.Backend run:
 dotnet restore
 dotnet build
 cd .\GlowingSystem\
+dotnet ef database update
 dotnet run
 
 
