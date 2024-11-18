@@ -10,5 +10,5 @@ RUN dotnet publish ./GlowingSystem/GlowingSystem.csproj -o /publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /publish
 COPY --from=build /publish ./
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
 ENTRYPOINT [ "dotnet", "GlowingSystem.dll" ]

@@ -5,6 +5,7 @@ using GlowingSystem.MappingProfiles;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System.Text.Json.Serialization;
+using GlowingSystem.DataAccess;
 
 namespace GlowingSystem
 {
@@ -60,13 +61,11 @@ namespace GlowingSystem
             var logger = app.Services.GetRequiredService<ILogger<Program>>();
             app.ConfigureExceptionHandler(logger);
 
-            if (app.Environment.IsDevelopment())
-            {
+
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors("GlowingSystemCorsPolicy");
 
@@ -75,7 +74,7 @@ namespace GlowingSystem
 
             app.MapControllers();
 
-            app.Run();
+            app.MigrateDatabase().Run();
         }
     }
 }

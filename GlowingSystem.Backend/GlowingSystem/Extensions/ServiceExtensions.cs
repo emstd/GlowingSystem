@@ -19,11 +19,9 @@ namespace GlowingSystem.Extensions
             {
                 o.AddPolicy("GlowingSystemCorsPolicy", p =>
                 {
-                    p.WithOrigins("http://localhost:5173")
+                    p.AllowAnyOrigin()
                     .WithHeaders().AllowAnyHeader()
-                    .WithMethods().AllowAnyMethod()
-                    .AllowCredentials()
-                    .SetIsOriginAllowedToAllowWildcardSubdomains();
+                    .WithMethods().AllowAnyMethod();
                 });
             });
         }

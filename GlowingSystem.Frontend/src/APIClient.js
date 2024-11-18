@@ -3,7 +3,7 @@ import { redirect } from "react-router-dom";
 
 export class APIClient
 {
-  URL = "http://localhost:5119";
+  URL = "http://localhost:5000";
 
   //Customers
 
