@@ -1,0 +1,26 @@
+services:
+  gl-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1435:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=BigPass_1234
+    restart: always
+
+  glowingsystem_backend:
+    depends_on:
+      - gl-db
+    build:
+      context: ./GlowingSystem.Backend
+    ports:
+      - "5000:5000"
+
+  # glowingsystem_frontend:
+  #   build:
+  #     context: ./GlowingSystem.Frontend
+  #   image: emstd/glowingsystem_frontend:runtime
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - gl-network
