@@ -19,7 +19,7 @@ namespace GlowingSystem.Extensions
             {
                 o.AddPolicy("GlowingSystemCorsPolicy", p =>
                 {
-                    p.WithOrigins("http://127.0.0.1:5173")
+                    p.WithOrigins("http://localhost:5173")
                     .WithHeaders().AllowAnyHeader()
                     .WithMethods().AllowAnyMethod()
                     .AllowCredentials()
