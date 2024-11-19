@@ -16,11 +16,13 @@ services:
       context: ./GlowingSystem.Backend
     container_name: glowingsystem_backend
     ports:
-      - "5000:5000"
+      - "5119:5000"
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
 
-  # glowingsystem_frontend:
-  #   build:
-  #     context: ./GlowingSystem.Frontend
-  #   image: emstd/glowingsystem_frontend:runtime
-  #   ports:
-  #     - "8080:80"
+  glowingsystem_frontend:
+    build:
+      context: ./GlowingSystem.Frontend
+    image: emstd/glowingsystem_frontend:runtime
+    ports:
+      - "8080:4173"

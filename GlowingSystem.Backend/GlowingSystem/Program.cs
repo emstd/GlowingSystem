@@ -61,16 +61,19 @@ namespace GlowingSystem
             var logger = app.Services.GetRequiredService<ILogger<Program>>();
             app.ConfigureExceptionHandler(logger);
 
+            if (app.Environment.IsProduction())
+            {
+                app.UseHsts();
+            }
 
-                app.UseSwagger();
-                app.UseSwaggerUI();
-
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors("GlowingSystemCorsPolicy");
 
             app.UseAuthorization();
 
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.MapControllers();
 
