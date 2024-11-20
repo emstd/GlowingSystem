@@ -14,7 +14,7 @@ services:
       - gl-db
     build:
       context: ./GlowingSystem.Backend
-    container_name: glowingsystem_backend
+    container_name: gl_backend
     ports:
       - "5119:5000"
     environment:
@@ -24,5 +24,6 @@ services:
     build:
       context: ./GlowingSystem.Frontend
     image: emstd/glowingsystem_frontend:runtime
+    container_name: gl_frontend
     ports:
       - "8080:4173"

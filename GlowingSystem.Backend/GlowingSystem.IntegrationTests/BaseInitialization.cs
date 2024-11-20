@@ -1,10 +1,10 @@
 ﻿using AutoFixture;
 using GlowingSystem.DataAccess;
-using GlowingSystem.DataAccess.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Respawn;
 using Respawn.Graph;
 
@@ -13,6 +13,7 @@ namespace GlowingSystem.IntegrationTests
     [Collection("BaseCollection")]
     public class BaseInitialization : IAsyncLifetime
     {
+        private string _connectionString = "Server=host.docker.internal,1433; User Id=ASU; Password=123AsdCvb; Database=GlowingSystemTestDb; TrustServerCertificate=True;";
         protected WebApplicationFactory<Program> _app;
         protected readonly IServiceScope _scope;
         protected readonly HttpClient _client;
@@ -34,14 +35,14 @@ namespace GlowingSystem.IntegrationTests
 
         public async Task DisposeAsync()
         {
-            await _respawner.ResetAsync("Server=.;database=GlowingSystemTestsDb;trusted_connection=true;TrustServerCertificate=True");
+            await _respawner.ResetAsync(_connectionString);
         }
 
         public async Task InitializeAsync()
         {
             await _dbContext.Database.MigrateAsync();
             _respawner = await Respawner
-                .CreateAsync("Server=.;database=GlowingSystemTestsDb;trusted_connection=true;TrustServerCertificate=True", new RespawnerOptions
+                .CreateAsync(_connectionString, new RespawnerOptions
                 {
                     TablesToIgnore = new Table[]
                     {

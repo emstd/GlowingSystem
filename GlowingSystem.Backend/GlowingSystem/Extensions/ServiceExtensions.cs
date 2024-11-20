@@ -37,6 +37,11 @@ namespace GlowingSystem.Extensions
                 b => b.MigrationsAssembly("GlowingSystem")));
         }
 
+        public static void ConfigureInMemorySqlContext(this IServiceCollection services)
+        {
+            services.AddDbContext<GlowingSystemDbContext>(opts => opts.UseInMemoryDatabase("GlowingSystemTestDb"));
+        }
+
         /// <summary>
         /// Add business layer services to the specified <see cref="IServiceCollection"/>.
         /// </summary>
